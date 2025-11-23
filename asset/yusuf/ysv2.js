@@ -97,8 +97,8 @@
         <div style="display: flex; align-items: center; justify-content: space-between;">
           <span class="yusuf-ayat-number">${ayat.number}</span>
           <div class="yusuf-ayat-actions">
-            <button class="yusuf-action-btn" onclick="playAyatDirect(${index})">▶ Main</button>
-            <button class="yusuf-action-btn" onclick="copyAyatText(${index})">📋 Salin</button>
+            <button class="yusuf-action-btn" onclick="playAyatDirect(${index})">▶ Play</button>
+            <button class="yusuf-action-btn" onclick="copyAyatText(${index})">📋 Copy</button>
           </div>
         </div>
         <div class="yusuf-ayat-arabic">${ayat.arabic}</div>
@@ -245,7 +245,7 @@
   function updateUI() {
     // Update play button
     playIcon.textContent = isPlaying ? '⏸' : '▶';
-    playText.textContent = isPlaying ? 'Jeda' : 'Main';
+    playText.textContent = isPlaying ? 'Pause' : 'Play';
     
     // Update navigation buttons
     prevBtn.disabled = currentAyat === 0;
