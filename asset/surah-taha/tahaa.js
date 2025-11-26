@@ -11,6 +11,9 @@
  * @license Proprietary
  */
 
+// Nama fail: asset/surah-taha/taha.js
+// Tool Surah Taha – display Arab + transliterasi + BM + audio per ayat
+
 (function () {
   const SURAH_NUMBER = 20;
   const TOTAL_AYAHS = 135;
@@ -301,10 +304,10 @@
     const idx = list.indexOf(ayahNumber);
     if (idx === -1) {
       list.push(ayahNumber);
-      showToast("Ayat " + ayahNumber + " disimpan dalam tandabuku.");
+      showToast("Ayat " + ayahNumber + " disimpan dalam .");
     } else {
       list.splice(idx, 1);
-      showToast("Ayat " + ayahNumber + " dibuang dari tandabuku.");
+      showToast("Ayat " + ayahNumber + " dibuang dari bookmark.");
     }
     saveBookmarks(list);
   }
@@ -315,7 +318,7 @@
       return a - b;
     });
     if (!list.length) {
-      els.bookmarkList.innerHTML = "<p>Tiada tandabuku disimpan.</p>";
+      els.bookmarkList.innerHTML = "<p>Tiada bookmark disimpan.</p>";
       return;
     }
     const html = list
@@ -405,7 +408,7 @@
             showToast("Gagal menyediakan pautan.");
           });
       } else {
-        showToast("Kongsi tidak disokong di pelayar ini.");
+        showToast("Share tidak disokong di pelayar ini.");
       }
     }
   }
@@ -470,9 +473,9 @@
       malay +
       "</div>" +
       '<div class="verse-actions">' +
-      '<button type="button" class="action-btn js-copy-ayah">Salin</button>' +
-      '<button type="button" class="action-btn js-bookmark-ayah">Tandabuku</button>' +
-      '<button type="button" class="action-btn js-share-ayah">Kongsi</button>' +
+      '<button type="button" class="action-btn js-copy-ayah">Copy</button>' +
+      '<button type="button" class="action-btn js-bookmark-ayah">Bookmark</button>' +
+      '<button type="button" class="action-btn js-share-ayah">Share</button>' +
       "</div>";
 
     return article;
@@ -570,7 +573,7 @@
       }
     }
 
-    // Buka modal tandabuku bila user tekan shortcut (optional)
+    // Buka modal bookmark bila user tekan shortcut (optional)
     // Contoh: tekan "b" pada keyboard
     document.addEventListener("keydown", function (e) {
       if (e.key === "b" || e.key === "B") {
