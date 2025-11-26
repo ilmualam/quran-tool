@@ -1,0 +1,565 @@
+/* WRAPPED: semua di bawah .ilmu-staha-wrap supaya tak clash dengan theme */
+
+.ilmu-staha-wrap {
+	--primary-light: #249749;
+	--primary-dark: #0c3803;
+	--bg-light: #f8fdf9;
+	--text-dark: #1a1a1a;
+	--border-color: #e0e0e0;
+	--shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	max-width: 1200px;
+	margin: 0 auto 24px auto;
+	padding: 16px 12px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	background: var(--bg-light);
+	border-radius: 16px;
+	box-shadow: var(--shadow);
+}
+
+.ilmu-staha-wrap * {
+	box-sizing: border-box;
+}
+
+.ilmu-staha-wrap #surah-taha-container {
+	background: #ffffff;
+	border-radius: 14px;
+	overflow: hidden;
+	border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+
+/* HEADER */
+
+.ilmu-staha-wrap .surah-header {
+	padding: 24px 20px 20px;
+	background: radial-gradient(circle at top left, #32b36a 0, #249749 45%, #0c3803 100%);
+	color: #ffffff;
+	text-align: center;
+}
+
+.ilmu-staha-wrap .surah-label {
+	display: inline-block;
+	padding: 4px 12px;
+	margin-bottom: 12px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	font-size: 0.78rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.95;
+}
+
+.ilmu-staha-wrap .surah-title {
+	font-size: 2.6rem;
+	margin: 0 0 6px 0;
+	font-weight: 700;
+	direction: rtl;
+	color: #ffffff;
+}
+
+.ilmu-staha-wrap .surah-title-malay {
+	font-size: 1.2rem;
+	margin: 0 0 10px 0;
+	font-weight: 500;
+	color: #e6ffef;
+}
+
+.ilmu-staha-wrap .surah-meta {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.ilmu-staha-wrap .meta-item {
+	padding: 6px 12px;
+	background: rgba(0, 0, 0, 0.18);
+	border-radius: 999px;
+	font-size: 0.82rem;
+	white-space: nowrap;
+}
+
+
+/* CTA BOX */
+
+.ilmu-staha-wrap .ilmu-staha-cta {
+	padding: 16px 18px 14px;
+	background: #f1fbf4;
+	border-bottom: 1px solid #e0f4e6;
+}
+
+.ilmu-staha-wrap .ilmu-staha-cta h3 {
+	margin: 0 0 6px 0;
+	font-size: 1rem;
+	color: #0c3803;
+}
+
+.ilmu-staha-wrap .ilmu-staha-cta p {
+	margin: 0 0 10px 0;
+	font-size: 0.9rem;
+	color: #2d3a2f;
+	line-height: 1.5;
+}
+
+.ilmu-staha-wrap .cta-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.ilmu-staha-wrap .cta-btn {
+	display: inline-block;
+	font-size: 0.85rem;
+	padding: 7px 14px;
+	border-radius: 999px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+}
+
+.ilmu-staha-wrap .cta-btn.primary {
+	background: #249749;
+	color: #ffffff;
+	border: 1px solid #0c3803;
+}
+
+.ilmu-staha-wrap .cta-btn.primary:hover {
+	background: #0c3803;
+}
+
+.ilmu-staha-wrap .cta-btn.ghost {
+	background: #ffffff;
+	color: #0c3803;
+	border: 1px solid #c8e9d3;
+}
+
+.ilmu-staha-wrap .cta-btn.ghost:hover {
+	background: #e7f7ec;
+}
+
+
+/* Audio Controls */
+
+.ilmu-staha-wrap .audio-controls {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 16px 18px;
+	background: #ffffff;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.ilmu-staha-wrap .control-btn {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: #249749;
+	color: white;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+	box-shadow: 0 4px 10px rgba(36, 151, 73, 0.35);
+}
+
+.ilmu-staha-wrap .control-btn:hover {
+	background: #0c3803;
+	transform: translateY(-1px);
+}
+
+.ilmu-staha-wrap .audio-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.ilmu-staha-wrap .audio-progress {
+	width: 100%;
+	height: 6px;
+	background: #e0e0e0;
+	border-radius: 999px;
+	overflow: hidden;
+	cursor: pointer;
+	margin-bottom: 6px;
+}
+
+.ilmu-staha-wrap .progress-bar {
+	height: 100%;
+	background: linear-gradient(90deg, #0c3803, #249749);
+	width: 0%;
+	transition: width 0.25s ease;
+}
+
+.ilmu-staha-wrap .audio-meta {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.8rem;
+	color: #555;
+}
+
+.ilmu-staha-wrap .qari-select {
+	padding: 7px 10px;
+	border: 1px solid #d7e7db;
+	border-radius: 8px;
+	background: #ffffff;
+	cursor: pointer;
+	font-size: 0.85rem;
+	max-width: 220px;
+	color: #1f2d20;
+}
+
+
+/* Settings Panel */
+
+.ilmu-staha-wrap .settings-panel {
+	margin: 0;
+	padding: 12px 18px 16px;
+	background: #ffffff;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.ilmu-staha-wrap .settings-toggle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 14px;
+	background: #f5faf7;
+	border: 1px solid #d9ecdf;
+	border-radius: 999px;
+	cursor: pointer;
+	font-size: 0.85rem;
+	transition: all 0.2s ease;
+	width: 100%;
+	justify-content: center;
+	color: #0c3803;
+}
+
+.ilmu-staha-wrap .settings-toggle:hover {
+	border-color: #249749;
+	background: #e6f7eb;
+}
+
+.ilmu-staha-wrap .settings-content {
+	background: #ffffff;
+	padding: 14px 12px 6px;
+	border-radius: 10px;
+	margin-top: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.ilmu-staha-wrap .setting-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+	font-size: 0.85rem;
+	color: #1f2d20;
+}
+
+.ilmu-staha-wrap .setting-row label {
+	flex: 1;
+}
+
+.ilmu-staha-wrap .setting-row input[type="range"] {
+	flex: 2;
+	cursor: pointer;
+}
+
+.ilmu-staha-wrap .setting-row input[type="checkbox"] {
+	cursor: pointer;
+}
+
+
+/* Verses Container */
+
+.ilmu-staha-wrap .verses-container {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 16px 16px 20px;
+	background: #ffffff;
+}
+
+.ilmu-staha-wrap .verse-card {
+	background: #ffffff;
+	padding: 16px 16px 14px;
+	border-radius: 10px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+	transition: all 0.2s ease;
+	border-left: 3px solid transparent;
+}
+
+.ilmu-staha-wrap .verse-card.active {
+	border-left-color: #249749;
+	background: #f4fbf6;
+	transform: translateX(3px);
+}
+
+/* Icon kecil pada nombor ayat bila sedang dimainkan */
+.ilmu-staha-wrap .verse-card.active .verse-number::before {
+	content: "\25B8";
+	display: inline-block;
+	margin-right: 6px;
+	font-size: 0.8rem;
+}
+.ilmu-staha-wrap .verse-number {
+	display: inline-block;
+	background: #249749;
+	color: #ffffff;
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.ilmu-staha-wrap .verse-arabic {
+	font-size: 26px;
+	line-height: 2.1;
+	direction: rtl;
+	text-align: right;
+	color: var(--text-dark);
+	font-family: 'Traditional Arabic', 'Al Qalam Quran Majeed', serif;
+	margin-bottom: 10px;
+	font-weight: 400;
+}
+
+.ilmu-staha-wrap .verse-transliteration {
+	font-size: 0.86rem;
+	color: #555;
+	font-style: italic;
+	margin-bottom: 8px;
+	line-height: 1.6;
+}
+
+.ilmu-staha-wrap .verse-translation {
+	font-size: 0.92rem;
+	color: #333;
+	line-height: 1.8;
+	margin-bottom: 10px;
+}
+
+.ilmu-staha-wrap .verse-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.ilmu-staha-wrap .action-btn {
+	padding: 6px 10px;
+	border: 1px solid #dfe9e2;
+	background: #ffffff;
+	border-radius: 999px;
+	cursor: pointer;
+	font-size: 0.8rem;
+	transition: all 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	color: #1f2d20;
+}
+
+.ilmu-staha-wrap .action-btn:hover {
+	border-color: #249749;
+	color: #249749;
+	background: #f2fbf5;
+}
+
+.ilmu-staha-wrap .action-btn svg {
+	width: 14px;
+	height: 14px;
+}
+
+
+/* Blockquote / Nota */
+
+.ilmu-staha-wrap .ilmu-staha-note {
+	margin: 0 16px 16px;
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 1px dashed #cde5d3;
+	background: #f7fcf8;
+	display: flex;
+	gap: 10px;
+	align-items: flex-start;
+	font-size: 0.86rem;
+	color: #243125;
+}
+
+.ilmu-staha-wrap .ilmu-staha-note svg {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	fill: #249749;
+	margin-top: 2px;
+}
+
+.ilmu-staha-wrap .ilmu-staha-note p {
+	margin: 0;
+}
+
+
+/* Toast */
+
+.ilmu-staha-wrap .toast {
+	position: fixed;
+	bottom: 26px;
+	left: 50%;
+	transform: translateX(-50%) translateY(100px);
+	background: #0c3803;
+	color: white;
+	padding: 10px 18px;
+	border-radius: 999px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+	z-index: 9999;
+	opacity: 0;
+	font-size: 0.85rem;
+	transition: all 0.25s ease;
+}
+
+.ilmu-staha-wrap .toast.show {
+	transform: translateX(-50%) translateY(0);
+	opacity: 1;
+}
+
+
+/* Modal */
+
+.ilmu-staha-wrap .modal {
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	align-items: center;
+	justify-content: center;
+}
+
+.ilmu-staha-wrap .modal.show {
+	display: flex;
+}
+
+.ilmu-staha-wrap .modal-content {
+	background: white;
+	padding: 22px 18px 18px;
+	border-radius: 12px;
+	max-width: 480px;
+	width: 92%;
+	max-height: 80vh;
+	overflow-y: auto;
+	position: relative;
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+.ilmu-staha-wrap .modal-close {
+	position: absolute;
+	top: 10px;
+	right: 14px;
+	font-size: 22px;
+	cursor: pointer;
+	color: #999;
+	background: none;
+	border: none;
+}
+
+.ilmu-staha-wrap .modal-close:hover {
+	color: #0c3803;
+}
+
+
+/* Loading */
+
+.ilmu-staha-wrap .loading-indicator {
+	text-align: center;
+	padding: 40px 20px 26px;
+	font-size: 0.9rem;
+	color: #2b3a2e;
+}
+
+.ilmu-staha-wrap .spinner {
+	border: 3px solid #f3f3f3;
+	border-top: 3px solid #249749;
+	border-radius: 50%;
+	width: 42px;
+	height: 42px;
+	animation: staha-spin 1s linear infinite;
+	margin: 0 auto 12px;
+}
+
+@keyframes staha-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+	.ilmu-staha-wrap {
+		padding: 10px;
+	}
+	.ilmu-staha-wrap .surah-title {
+		font-size: 2.2rem;
+	}
+	.ilmu-staha-wrap .surah-title-malay {
+		font-size: 1.05rem;
+	}
+	.ilmu-staha-wrap .audio-controls {
+		flex-wrap: wrap;
+	}
+	.ilmu-staha-wrap .qari-select {
+		width: 100%;
+		max-width: 100%;
+	}
+	.ilmu-staha-wrap .verse-arabic {
+		font-size: 22px;
+	}
+	.ilmu-staha-wrap .ilmu-staha-cta {
+		padding: 12px 14px;
+	}
+	.ilmu-staha-wrap .verses-container {
+		padding: 12px 10px 16px;
+	}
+	.ilmu-staha-wrap .verse-card {
+		padding: 14px 12px;
+	}
+}
+
+@media (max-width: 480px) {
+	.ilmu-staha-wrap .cta-buttons {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.ilmu-staha-wrap .cta-btn {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+@media print {
+	.ilmu-staha-wrap .audio-controls,
+	.ilmu-staha-wrap .settings-panel,
+	.ilmu-staha-wrap .verse-actions,
+	.ilmu-staha-wrap .ilmu-staha-cta,
+	.ilmu-staha-wrap .ilmu-staha-note {
+		display: none !important;
+	}
+	.ilmu-staha-wrap .verse-card {
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
+	.ilmu-staha-wrap {
+		box-shadow: none;
+		background: #ffffff;
+	}
+}
