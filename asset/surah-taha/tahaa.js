@@ -237,7 +237,7 @@
     }
   }
 
-  function applyFontSizes() {
+    function applyFontSizes() {
     if (!els.arabicSize || !els.translationSize || !els.versesContainer) return;
     const arabSize = els.arabicSize.value || 28;
     const transSize = els.translationSize.value || 16;
@@ -253,8 +253,13 @@
       .forEach(function (el) {
         el.style.fontSize = transSize + "px";
       });
-  }
 
+    const arabVal = document.getElementById("arabicSizeValue");
+    const transVal = document.getElementById("translationSizeValue");
+    if (arabVal) arabVal.textContent = arabSize + "px";
+    if (transVal) transVal.textContent = transSize + "px";
+  }
+  
   function applyTransliterationVisibility() {
     if (!els.showTransliteration || !els.versesContainer) return;
     const show = els.showTransliteration.checked;
