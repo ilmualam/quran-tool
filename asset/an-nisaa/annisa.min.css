@@ -405,3 +405,59 @@
     gap: 2px;
   }
 }
+/* =========================================
+   FIX MOBILE: Audio bar floating / sticky
+   ========================================= */
+
+/* Tablet & ke bawah – bagi lebih breathing space */
+@media (max-width: 992px) {
+  #surah-an-nisa-container .audio-controls {
+    top: 56px; /* kalau header blog tinggi sikit boleh adjust 50–70px */
+  }
+}
+
+/* Mobile – buang sticky + susun column, tak semak */
+@media (max-width: 768px) {
+  #surah-an-nisa-container {
+    padding: 10px 8px;
+  }
+
+  #surah-an-nisa-container .audio-controls {
+    position: static;              /* buang sticky untuk mobile */
+    border-radius: 12px;           /* tak perlu pill besar sangat */
+    flex-direction: column;        /* susun atas-bawah */
+    align-items: stretch;
+    gap: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  #surah-an-nisa-container .audio-info {
+    width: 100%;
+  }
+
+  #surah-an-nisa-container .audio-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  /* Qari dropdown full width, senang tap */
+  #surah-an-nisa-container .qari-select {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+}
+
+/* Phone kecil sangat (≤ 480px) – kecikkan button sikit */
+@media (max-width: 480px) {
+  #surah-an-nisa-container .control-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  #surah-an-nisa-container .control-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
