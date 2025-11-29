@@ -28,7 +28,13 @@
 .ilmu-x-error{color:#d32f2f}
 .ilmu-x-kahfi-footer{background:#f8fcf9;padding:16px;text-align:center;border-top:1px solid #e0e0e0;font-size:14px}
 .ilmu-x-kahfi-footer strong{color:#249749}
-/* Al-Kahfi Tool */
+
+@media(max-width:768px){
+.ilmu-x-kahfi-controls{flex-direction:column}
+.ilmu-x-kahfi-controls input,.ilmu-x-kahfi-controls button{width:100%}
+.ilmu-x-ayah-arabic{font-size:20px}
+.ilmu-x-kahfi-content{max-height:60vh}}
+
 .ilmu-sak-container {width:100%; max-width:1200px; margin:10px auto; background-color:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.1); overflow:hidden}
 .ilmu-sak-layout {display:flex; opacity:0; transition:opacity .5s ease-in-out}
 .ilmu-sak-sidebar {width:200px; background-color:#1e7a3a; color:#fff; padding:25px; display:flex; flex-direction:column; flex-shrink:0}
@@ -99,9 +105,3 @@
 #surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy:hover {background:#212121!important;}
 #surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync {background:#ff9800!important; color:#fff!important;}
 #surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync:hover {background:#e68900!important;}
-/* Al-Kahfi Tool END */
-@media(max-width:768px){
-.ilmu-x-kahfi-controls{flex-direction:column}
-.ilmu-x-kahfi-controls input,.ilmu-x-kahfi-controls button{width:100%}
-.ilmu-x-ayah-arabic{font-size:20px}
-.ilmu-x-kahfi-content{max-height:60vh}}
