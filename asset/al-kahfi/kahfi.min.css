@@ -35,6 +35,33 @@
 .ilmu-x-ayah-arabic{font-size:20px}
 .ilmu-x-kahfi-content{max-height:60vh}}
 
+#surah-alkahf-tool-container .ilmu-sak-journey-item {display:flex!important; align-items:center!important; gap:12px!important; padding:10px 12px!important; border-radius:6px!important; background:transparent!important; color:#fff!important; text-decoration:none!important; border:none!important; box-shadow:none!important;}
+#surah-alkahf-tool-container .ilmu-sak-journey-item svg {width:20px!important; height:20px!important; fill:currentColor!important; opacity:.8!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button {display:inline-flex!important; align-items:center!important; gap:6px!important; cursor:pointer!important; font-size:12px!important; font-weight:600!important; padding:7px 12px!important; border-radius:6px!important; border:none!important; text-decoration:none!important; white-space:nowrap!important; line-height:1!important; background:#2b702a!important; color:#fff!important; box-shadow:0 2px 6px rgba(0,0,0,.18)!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button:hover {background:#1e5a2a!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button svg {width:14px!important; height:14px!important; fill:#fff!important; display:block!important;}
+#surah-alkahf-tool-container .ilmu-sak-journey-item {display:flex!important; align-items:center!important; gap:12px!important; padding:10px 12px!important; border-radius:6px!important; background:transparent!important; color:#fff!important; text-decoration:none!important; border:none!important; box-shadow:none!important;}
+#surah-alkahf-tool-container .ilmu-sak-journey-item svg {width:20px!important; height:20px!important; fill:currentColor!important; opacity:.8!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button {display:inline-flex!important; align-items:center!important; gap:6px!important; cursor:pointer!important; font-size:12px!important; font-weight:600!important; padding:7px 12px!important; border-radius:6px!important; border:none!important; text-decoration:none!important; white-space:nowrap!important; line-height:1!important; background:#2b702a!important; color:#fff!important; box-shadow:0 2px 6px rgba(0,0,0,.18)!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button:hover {background:#1e5a2a!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button svg {width:14px!important; height:14px!important; fill:#fff!important; display:block!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share {background:#2b702a!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share:hover {background:#0d47a1!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark {background:#ffc107!important; color:#4a3600!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark:hover {background:#ffb300!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy {background:#424242!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy:hover {background:#212121!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync {background:#ff9800!important; color:#fff!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync:hover {background:#e68900!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share {background:#2b702a!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share:hover {background:#0d47a1!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark {background:#ffc107!important; color:#4a3600!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark:hover {background:#ffb300!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy {background:#424242!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy:hover {background:#212121!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync {background:#ff9800!important; color:#fff!important;}
+#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync:hover {background:#e68900!important;}
+
 .ilmu-sak-container {width:100%; max-width:1200px; margin:10px auto; background-color:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.1); overflow:hidden}
 .ilmu-sak-layout {display:flex; opacity:0; transition:opacity .5s ease-in-out}
 .ilmu-sak-sidebar {width:200px; background-color:#1e7a3a; color:#fff; padding:25px; display:flex; flex-direction:column; flex-shrink:0}
@@ -78,30 +105,3 @@
 .ilmu-sak-layout {flex-direction:column}
 .ilmu-sak-sidebar {width:100%; border-radius:0}
 #ilmu-sak-ayah-list {height:auto; max-height:none}}
-
-#surah-alkahf-tool-container .ilmu-sak-journey-item {display:flex!important; align-items:center!important; gap:12px!important; padding:10px 12px!important; border-radius:6px!important; background:transparent!important; color:#fff!important; text-decoration:none!important; border:none!important; box-shadow:none!important;}
-#surah-alkahf-tool-container .ilmu-sak-journey-item svg {width:20px!important; height:20px!important; fill:currentColor!important; opacity:.8!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button {display:inline-flex!important; align-items:center!important; gap:6px!important; cursor:pointer!important; font-size:12px!important; font-weight:600!important; padding:7px 12px!important; border-radius:6px!important; border:none!important; text-decoration:none!important; white-space:nowrap!important; line-height:1!important; background:#2b702a!important; color:#fff!important; box-shadow:0 2px 6px rgba(0,0,0,.18)!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button:hover {background:#1e5a2a!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button svg {width:14px!important; height:14px!important; fill:#fff!important; display:block!important;}
-#surah-alkahf-tool-container .ilmu-sak-journey-item {display:flex!important; align-items:center!important; gap:12px!important; padding:10px 12px!important; border-radius:6px!important; background:transparent!important; color:#fff!important; text-decoration:none!important; border:none!important; box-shadow:none!important;}
-#surah-alkahf-tool-container .ilmu-sak-journey-item svg {width:20px!important; height:20px!important; fill:currentColor!important; opacity:.8!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button {display:inline-flex!important; align-items:center!important; gap:6px!important; cursor:pointer!important; font-size:12px!important; font-weight:600!important; padding:7px 12px!important; border-radius:6px!important; border:none!important; text-decoration:none!important; white-space:nowrap!important; line-height:1!important; background:#2b702a!important; color:#fff!important; box-shadow:0 2px 6px rgba(0,0,0,.18)!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button:hover {background:#1e5a2a!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-button svg {width:14px!important; height:14px!important; fill:#fff!important; display:block!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share {background:#2b702a!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share:hover {background:#0d47a1!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark {background:#ffc107!important; color:#4a3600!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark:hover {background:#ffb300!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy {background:#424242!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy:hover {background:#212121!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync {background:#ff9800!important; color:#fff!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync:hover {background:#e68900!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share {background:#2b702a!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-share:hover {background:#0d47a1!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark {background:#ffc107!important; color:#4a3600!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-bookmark:hover {background:#ffb300!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy {background:#424242!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-copy:hover {background:#212121!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync {background:#ff9800!important; color:#fff!important;}
-#surah-alkahf-tool-container .ilmu-sak-ayah-actions .ilmu-sak-action-sync:hover {background:#e68900!important;}
