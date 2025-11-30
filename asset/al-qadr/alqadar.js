@@ -156,8 +156,8 @@
           </div>
 
           <div class="ilmu-alqadr-footer">
-            <p>© 2025 IlmuAlam.com • Bacaan Al-Quran Interaktif • Audio oleh Mishary Rashid Alafasy</p>
-            <p style="margin-top:.5em;font-size:.9em">🔍 Kata Kunci: ${SEO_KEYWORDS.primary.slice(0, 3).join(' • ')}</p>
+            <p>© 2025 <a href="https://www.ilmualam.com" target="_blank">IlmuAlam.com</a> • Bacaan Al-Quran Interaktif • Audio oleh Mishary Rashid Alafasy</p>
+            <p style="margin-top:.5em;font-size:.9em">🔍 Carian Terkini: ${SEO_KEYWORDS.primary.slice(0, 3).join(' • ')}</p>
           </div>
         </div>
       `;
