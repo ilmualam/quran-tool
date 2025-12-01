@@ -292,7 +292,7 @@
 
 /* AYAH LIST / SCROLL AREA */
 #surah-al-maidah-tool .ayah-list {
-  max-height: 700px;
+  max-height: 1200px;
   overflow-y: auto;
   padding: 1rem;
   scroll-behavior: smooth;
@@ -550,8 +550,8 @@
   }
 
   #surah-al-maidah-tool .ayah-list {
-    max-height: 800dvh;
-    max-height: 700vh;
+    max-height: 1200dvh;
+    max-height: 1000vh;
     padding: 0.75rem;
   }
 
@@ -569,7 +569,7 @@
 /* let CSS use the computed --available-h value */
 #surah-al-maidah-tool .ayah-list {
   /* default fallback for large screens */
-  max-height: 900px;
+  max-height: 1000px;
   overflow-y: auto;
   padding: 1rem;
 }
@@ -578,12 +578,12 @@
 @media (max-width: 768px) {
   #surah-al-maidah-tool .ayah-list {
     /* prefer dvh (dynamic), fallback to visual viewport or computed var */
-    max-height: calc(800dvh
+    max-height: calc(1000dvh
       /* subtract measured chrome (header + controls + stats + audio) */
       - var(--surah-top-occupied, 0px)
     );
     /* extra fallback if browser doesn't support dvh */
-    max-height: var(--surah-computed-max, 420px);
+    max-height: var(--surah-computed-max, 820px);
     padding: 0.75rem;
   }
 }
