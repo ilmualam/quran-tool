@@ -11,7 +11,7 @@
 // Domain Protection
 const allowedDomains = [
 'ilmualam.com',
-'ilmualam.blogspot.com',
+'blogger.com',
 'localhost',
 '127.0.0.1'
 ];
