@@ -2,6 +2,7 @@
 // - Ambil teks & audio dari api.alquran.cloud (verse-by-verse Alafasy)
 // - Auto-scroll & highlight ayat semasa
 // - Progress hafazan + bookmark + dark mode + view mode + share
+
 (function () {
   'use strict';
 
@@ -12,7 +13,7 @@
     mode: 'ilmu_ad_dhuha_mode',
     dark: 'ilmu_ad_dhuha_dark',
     progress: 'ilmu_ad_dhuha_progress',
-    bookmarks: 'ilmu_ad_dhuha_bookmarks'
+    bookmarks: 'ilmu_ad_dhuha_bookmarks',
   };
 
   function init() {
@@ -38,7 +39,7 @@
       dark: false,
       completed: new Set(),
       bookmarks: new Set(),
-      audioTimer: null
+      audioTimer: null,
     };
 
     // === Helpers: localStorage ===
@@ -101,7 +102,7 @@
         console.error('Ad-Dhuha tool error:', err);
         if (versesContainer) {
           versesContainer.innerHTML =
-            '<p style="padding:12px 8px;color:#b91c1c;background:#fee2e2;border-radius:8px;">Maaf, tool Surah Ad-Dhuha sedang mengalami masalah teknikal. Sila cuba refresh halaman atau cuba lagi kemudian.</p>';
+            '<p style="padding:12px 0;color:#b91c1c;">Maaf, tool Surah Ad-Dhuha sedang mengalami masalah teknikal. Sila cuba refresh halaman atau cuba lagi kemudian.</p>';
         }
       });
 
@@ -120,7 +121,9 @@
       const audioEd = editions['ar.alafasy'];
 
       if (!ar || !ms || !rumi || !audioEd) {
-        throw new Error('Edition quran-uthmani/ms.basmeih/en.transliteration/ar.alafasy tidak lengkap');
+        throw new Error(
+          'Edition quran-uthmani/ms.basmeih/en.transliteration/ar.alafasy tidak lengkap'
+        );
       }
 
       const total =
@@ -141,7 +144,7 @@
           arabic: (ar.ayahs[i] && ar.ayahs[i].text) || '',
           rumi: (rumi.ayahs[i] && rumi.ayahs[i].text) || '',
           translation: (ms.ayahs[i] && ms.ayahs[i].text) || '',
-          audioUrl: (audioEd.ayahs[i] && audioEd.ayahs[i].audio) || ''
+          audioUrl: (audioEd.ayahs[i] && audioEd.ayahs[i].audio) || '',
         };
 
         verses.push(v);
@@ -185,7 +188,10 @@
         const completeBtn = document.createElement('button');
         completeBtn.type = 'button';
         completeBtn.className = 'action-icon action-complete';
-        completeBtn.setAttribute('aria-label', 'Tanda ayat ' + v.number + ' selesai');
+        completeBtn.setAttribute(
+          'aria-label',
+          'Tanda ayat ' + v.number + ' selesai'
+        );
         completeBtn.innerHTML = '✓';
         if (state.completed.has(v.number)) completeBtn.classList.add('active');
         completeBtn.addEventListener('click', function (e) {
@@ -197,7 +203,10 @@
         const bookmarkBtn = document.createElement('button');
         bookmarkBtn.type = 'button';
         bookmarkBtn.className = 'action-icon action-bookmark';
-        bookmarkBtn.setAttribute('aria-label', 'Tanda ayat ' + v.number + ' sebagai kegemaran');
+        bookmarkBtn.setAttribute(
+          'aria-label',
+          'Tanda ayat ' + v.number + ' sebagai kegemaran'
+        );
         bookmarkBtn.innerHTML = '★';
         if (state.bookmarks.has(v.number)) bookmarkBtn.classList.add('active');
         bookmarkBtn.addEventListener('click', function (e) {
@@ -234,7 +243,8 @@
           highlightCurrent();
           scrollToCurrent();
           if (state.playing) {
-            playFromCurrent(true); // tukar audio ke ayat yang diklik
+            // Kalau tengah play, tukar terus ke ayat baru
+            playFromCurrent(true);
           }
         });
 
@@ -294,7 +304,7 @@
       // Auto ke ayat seterusnya
       if (index < state.verses.length - 1) {
         state.currentIndex = index + 1;
-        playFromCurrent(true); // auto-scroll akan dipanggil dalam ni
+        playFromCurrent(true); // auto-scroll dipanggil dalam ni
       } else {
         // Habis surah
         state.playing = false;
@@ -310,6 +320,7 @@
 
       state.audioTimer = window.setInterval(function () {
         if (!audio.duration || isNaN(audio.duration)) return;
+
         const pct = (audio.currentTime / audio.duration) * 100;
         if (progressFill) progressFill.style.width = pct + '%';
 
@@ -331,7 +342,9 @@
       const s = Math.floor(sec || 0);
       const m = Math.floor(s / 60);
       const r = s % 60;
-      return String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0');
+      return (
+        String(m).padStart(2, '0') + ':' + String(r).padStart(2, '0')
+      );
     }
 
     // === Highlight & auto scroll ===
@@ -347,7 +360,10 @@
       if (!versesContainer) return;
       const current = versesContainer.querySelector('.verse-card.playing');
       if (current && current.scrollIntoView) {
-        current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
       }
     }
 
@@ -378,9 +394,12 @@
 
     function updateStats() {
       const total = state.verses.length || 11;
-      const pct = total ? Math.round((state.completed.size / total) * 100) : 0;
+      const pct = total
+        ? Math.round((state.completed.size / total) * 100)
+        : 0;
       if (statProgress) statProgress.textContent = pct + '%';
-      if (statBookmarks) statBookmarks.textContent = String(state.bookmarks.size);
+      if (statBookmarks)
+        statBookmarks.textContent = String(state.bookmarks.size);
     }
 
     // === Mode view (Arab / Rumi / Terjemahan / Tadabbur) ===
@@ -447,9 +466,13 @@
     // === Share buttons ===
     function handleShare(type) {
       const url =
-        window.location.origin + window.location.pathname + '#surah-ad-dhuha-tool';
+        window.location.origin +
+        window.location.pathname +
+        '#surah-ad-dhuha-tool';
+
       const text =
-        'Tool Surah Ad-Dhuha Rumi, Terjemahan & Audio di IlmuAlam.com\n' + url;
+        'Tool Surah Ad-Dhuha Rumi, Terjemahan & Audio di IlmuAlam.com\n' +
+        url;
 
       if (type === 'copy') {
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -474,7 +497,10 @@
         window.open('https://wa.me/?text=' + encodedText, '_blank');
       } else if (type === 'telegram') {
         window.open(
-          'https://t.me/share/url?url=' + encodedUrl + '&text=' + encodedText,
+          'https://t.me/share/url?url=' +
+            encodedUrl +
+            '&text=' +
+            encodedText,
           '_blank'
         );
       }
@@ -486,6 +512,7 @@
       if (playToggle) {
         playToggle.addEventListener('click', function () {
           if (!state.verses.length) return;
+
           if (!state.playing) {
             if (
               state.currentIndex < 0 ||
@@ -512,6 +539,7 @@
           const rect = progressBar.getBoundingClientRect();
           const ratio = (e.clientX - rect.left) / rect.width;
           const clamped = Math.min(Math.max(ratio, 0), 1);
+
           try {
             audio.currentTime = audio.duration * clamped;
           } catch (err) {
@@ -545,7 +573,7 @@
         });
       });
 
-      // Apply initial mode & stats once more (in case)
+      // Apply initial mode & stats
       applyMode(state.mode);
       updateStats();
     }
