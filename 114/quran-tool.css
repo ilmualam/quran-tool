@@ -1,0 +1,276 @@
+/* ==== ILMU QURAN TOOL – BRAND SCOPED ==== */
+.ilmu-quran-root {
+  margin: 24px 0;
+}
+
+/* WRAPPER UTAMA */
+.ilmu-quran-tool {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  line-height: 1.7;
+  color: #0c3808;
+  background: #f7fbf6;
+  border-radius: 18px;
+  border: 1px solid #d9e8dd;
+  padding: 18px 16px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+}
+
+/* HERO */
+.ilmu-quran-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ilmu-quran-hero-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ilmu-quran-hero-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #36c27a, #0c3808);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.ilmu-quran-hero h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #0c3808;
+}
+
+.ilmu-quran-hero small {
+  display: block;
+  font-size: 0.78rem;
+  color: #4f7054;
+}
+
+.ilmu-quran-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ilmu-quran-pill {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(36, 151, 73, 0.08);
+  color: #1e5b32;
+}
+
+/* TOOLBAR ATAS (AUDIO / TOGGLE) */
+.ilmu-quran-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 12px;
+}
+
+.ilmu-quran-audio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 180px;
+}
+
+.ilmu-quran-audio button {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, #0c3808, #249749);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ilmu-quran-audio button span {
+  font-size: 0.9rem;
+}
+
+.ilmu-quran-audio-status {
+  font-size: 0.8rem;
+  color: #4f7054;
+}
+
+/* TOGGLES */
+.ilmu-quran-toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.ilmu-quran-toggle {
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 4px 9px;
+  border: 1px solid #c3dfcb;
+  background: #ffffff;
+  color: #285936;
+  cursor: pointer;
+}
+
+.ilmu-quran-toggle.is-active {
+  background: #249749;
+  border-color: #249749;
+  color: #ffffff;
+}
+
+/* LIST AYAT */
+.ilmu-quran-ayah-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  border-top: 1px solid #dbe9df;
+}
+
+.ilmu-quran-ayah {
+  padding: 10px 0 12px;
+  border-bottom: 1px solid #e3efe6;
+  scroll-margin-top: 80px;
+}
+
+.ilmu-quran-ayah-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ilmu-quran-ayah-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: #ffffff;
+  border: 1px solid #c9decf;
+  color: #285936;
+}
+
+.ilmu-quran-ayah-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.ilmu-quran-ayah-actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 4px 7px;
+  font-size: 0.72rem;
+  background: #f0f7f2;
+  color: #285936;
+  cursor: pointer;
+}
+
+.ilmu-quran-ayah-actions button:hover {
+  background: #e0f1e5;
+}
+
+/* TEKS AYAT */
+.ilmu-quran-text-ar {
+  font-family: "Scheherazade New", "Traditional Arabic", "Amiri", serif;
+  font-size: 1.2rem;
+  line-height: 1.9;
+  text-align: right;
+  color: #0c3808;
+  margin-bottom: 4px;
+}
+
+.ilmu-quran-text-translit {
+  font-size: 0.82rem;
+  color: #4a634f;
+  margin-bottom: 4px;
+}
+
+.ilmu-quran-text-ms {
+  font-size: 0.88rem;
+  color: #23402b;
+}
+
+/* STATE ACTIVE (PLAYING) */
+.ilmu-quran-ayah.is-active {
+  background: linear-gradient(
+    135deg,
+    rgba(36, 151, 73, 0.05),
+    rgba(12, 56, 8, 0.03)
+  );
+}
+
+/* FOOTER NAV */
+.ilmu-quran-footer-nav {
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px dashed #cadccd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ilmu-quran-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ilmu-quran-footer-links a {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid #c3dfcb;
+  color: #285936;
+  background: #ffffff;
+}
+
+.ilmu-quran-footer-links a.primary {
+  background: #249749;
+  border-color: #249749;
+  color: #ffffff;
+}
+
+/* STATUS / ERROR */
+.ilmu-quran-loading,
+.ilmu-quran-error {
+  font-size: 0.9rem;
+  color: #4f7054;
+  padding: 10px 0;
+}
+
+.ilmu-quran-error {
+  color: #9b1c1c;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .ilmu-quran-tool {
+    padding: 14px 12px 16px;
+    border-radius: 14px;
+  }
+  .ilmu-quran-text-ar {
+    font-size: 1.05rem;
+  }
+}
