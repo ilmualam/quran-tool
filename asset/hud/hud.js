@@ -1,56 +1,56 @@
 const surahData = [
   {
 a sya'a rabbuk, inna rabbaka fa''alul lima yurid",
-      translation: "mereka kekal di dalamnya selama ada langit dan bumi, kecuali jika Tuhanmu menghendaki (yang lain). Sesungguhnya Tuhanmu Maha Pelaksana terhadap apa yang Dia kehendaki."
-    },
-    {
-      number: 108,
-      arabic: "وَأَمَّا الَّذِينَ سُعِدُوا فَفِي الْجَنَّةِ خَالِدِينَ فِيهَا مَا دَامَتِ السَّمَاوَاتُ وَالْأَرْضُ إِلَّا مَا شَاءَ رَبُّكَ ۖ عَطَاءً غَيْرَ مَجْذُوذٍ",
-      transliteration: "Wa ammal lazina su'idu fa fil jannati khalidina fiha ma damatis samawatu wal ardu illa ma sya'a rabbuk, 'ata'an gaira majzuz",
-      translation: "Adapun orang-orang yang berbahagia maka tempatnya di dalam surga, mereka kekal di dalamnya selama ada langit dan bumi, kecuali jika Tuhanmu menghendaki (yang lain), sebagai karunia yang tiada putus-putusnya."
-    },
-    {
-      number: 109,
-      arabic: "فَلَا تَكُ فِي مِرْيَةٍ مِّمَّا يَعْبُدُ هَٰؤُلَاءِ ۚ مَا يَعْبُدُونَ إِلَّا كَمَا يَعْبُدُ آبَاؤُهُم مِّن قَبْلُ ۚ وَإِنَّا لَمُوَفُّوهُمْ نَصِيبَهُمْ غَيْرَ مَنقُوصٍ",
-      transliteration: "Fa la taku fi miryatim mimma ya'budu ha'ula', ma ya'buduna illa kama ya'budu aba'uhum ming qabl, wa inna la muwaffuhum nasibahum gaira manqus",
-      translation: "Maka janganlah kamu (Muhammad) berada dalam keraguan tentang apa yang disembah oleh orang-orang musyrik itu. Mereka tidak menyembah melainkan sebagaimana yang disembah oleh bapak-bapak mereka yang dahulu. Dan sesungguhnya Kami pasti akan menyempurnakan bagian mereka dengan tiada dikurangi sedikitpun."
-    },
-    {
-      number: 110,
-      arabic: "وَلَقَدْ آتَيْنَا مُوسَى الْكِتَابَ فَاخْتُلِفَ فِيهِ ۚ وَلَوْلَا كَلِمَةٌ سَبَقَتْ مِن رَّبِّكَ لَقُضِيَ بَيْنَهُمْ ۚ وَإِنَّهُمْ لَفِي شَكٍّ مِّنْهُ مُرِيبٍ",
-      transliteration: "Wa laqad ataina musal kitaba fakhtulifa fih, wa laula kalimatun sabaqat mir rabbika la qudiya bainahum, wa innahum la fi syakkim minhu murib",
-      translation: "Dan sesungguhnya telah Kami berikan kitab kepada Musa, lalu diperselisihkan tentang kitab itu. Kalau tidaklah karena sesuatu ketetapan yang telah ada dari Tuhanmu, tentu telah diberikan keputusan di antara mereka. Dan sesungguhnya mereka benar-benar dalam keraguan yang mendalam tentang Al Quran."
-    },
-    {
-      number: 111,
-      arabic: "وَإِنَّ كُلًّا لَّمَّا لَيُوَفِّيَنَّهُمْ رَبُّكَ أَعْمَالَهُمْ ۚ إِنَّهُ بِمَا يَعْمَلُونَ خَبِيرٌ",
-      transliteration: "Wa inna kullal lamma la yuwaffiyyannahum rabbuka a'malahum, innahu bima ya'maluna khabir",
-      translation: "Dan sesungguhnya kepada masing-masing mereka pasti Tuhanmu akan menyempurnakan (pembalasan) pekerjaan mereka. Sesungguhnya Dia Maha Mengetahui apa yang mereka kerjakan."
-    },
-    {
-      number: 112,
-      arabic: "فَاسْتَقِمْ كَمَا أُمِرْتَ وَمَن تَابَ مَعَكَ وَلَا تَطْغَوْا ۚ إِنَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ",
-      transliteration: "Fastaqim kama umirta wa man taba ma'aka wa la tatgau, innahu bima ta'maluna basir",
-      translation: "Maka tetaplah kamu pada jalan yang benar, sebagaimana diperintahkan kepadamu dan (juga) orang yang telah taubat beserta kamu dan janganlah kamu melampaui batas. Sesungguhnya Dia Maha Melihat apa yang kamu kerjakan."
-    },
-    {
-      number: 113,
-      arabic: "وَلَا تَرْكَنُوا إِلَى الَّذِينَ ظَلَمُوا فَتَمَسَّكُمُ النَّارُ وَمَا لَكُم مِّن دُونِ اللَّهِ مِنْ أَوْلِيَاءَ ثُمَّ لَا تُنصَرُونَ",
-      transliteration: "Wa la tarkanu ilallazina zalamu fa tamassakumun naru wa ma lakum min dunillahi min auliya'a summa la tunsarun",
-      translation: "Dan janganlah kamu cenderung kepada orang-orang yang zalim yang menyebabkan kamu disentuh api neraka, dan sekali-kali kamu tiada mempunyai seorang penolongpun selain daripada Allah, kemudian kamu tidak akan diberi pertolongan."
-    },
-    {
-      number: 114,
-      arabic: "وَأَقِمِ الصَّلَاةَ طَرَفَيِ النَّهَارِ وَزُلَفًا مِّنَ اللَّيْلِ ۚ إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ ۚ ذَٰلِكَ ذِكْرَىٰ لِلذَّاكِرِينَ",
-      transliteration: "Wa aqimis salata tarafain nahari wa zulafam minal lail, innal hasanati yuzhib nas sayyi'at, zalika zikra liz zakirin",
-      translation: "Dan dirikanlah sembahyang itu pada kedua tepi siang (pagi dan petang) dan pada bahagian permulaan daripada malam. Sesungguhnya perbuatan-perbuatan yang baik itu menghapuskan (dosa) perbuatan-perbuatan yang buruk. Itulah peringatan bagi orang-orang yang ingat."
-    },
-    {
-      number: 115,
-      arabic: "وَاصْبِرْ فَإِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ",
-      transliteration: "Wasbir fa innallaha la yudi'u ajral muhsinin",
-      translation: "Dan bersabarlah, karena sesungguhnya Allah tiada menyia-nyiakan pahala orang-orang yang berbuat kebaikan."
-    },
+ translation: "mereka kekal di dalamnya selama ada langit dan bumi, kecuali jika Tuhanmu menghendaki (yang lain). Sesungguhnya Tuhanmu Maha Pelaksana terhadap apa yang Dia kehendaki."
+ },
+ {
+ number: 108,
+ arabic: "وَأَمَّا الَّذِينَ سُعِدُوا فَفِي الْجَنَّةِ خَالِدِينَ فِيهَا مَا دَامَتِ السَّمَاوَاتُ وَالْأَرْضُ إِلَّا مَا شَاءَ رَبُّكَ ۖ عَطَاءً غَيْرَ مَجْذُوذٍ",
+ transliteration: "Wa ammal lazina su'idu fa fil jannati khalidina fiha ma damatis samawatu wal ardu illa ma sya'a rabbuk, 'ata'an gaira majzuz",
+ translation: "Adapun orang-orang yang berbahagia maka tempatnya di dalam surga, mereka kekal di dalamnya selama ada langit dan bumi, kecuali jika Tuhanmu menghendaki (yang lain), sebagai karunia yang tiada putus-putusnya."
+ },
+ {
+ number: 109,
+ arabic: "فَلَا تَكُ فِي مِرْيَةٍ مِّمَّا يَعْبُدُ هَٰؤُلَاءِ ۚ مَا يَعْبُدُونَ إِلَّا كَمَا يَعْبُدُ آبَاؤُهُم مِّن قَبْلُ ۚ وَإِنَّا لَمُوَفُّوهُمْ نَصِيبَهُمْ غَيْرَ مَنقُوصٍ",
+ transliteration: "Fa la taku fi miryatim mimma ya'budu ha'ula', ma ya'buduna illa kama ya'budu aba'uhum ming qabl, wa inna la muwaffuhum nasibahum gaira manqus",
+ translation: "Maka janganlah kamu (Muhammad) berada dalam keraguan tentang apa yang disembah oleh orang-orang musyrik itu. Mereka tidak menyembah melainkan sebagaimana yang disembah oleh bapak-bapak mereka yang dahulu. Dan sesungguhnya Kami pasti akan menyempurnakan bagian mereka dengan tiada dikurangi sedikitpun."
+ },
+ {
+ number: 110,
+ arabic: "وَلَقَدْ آتَيْنَا مُوسَى الْكِتَابَ فَاخْتُلِفَ فِيهِ ۚ وَلَوْلَا كَلِمَةٌ سَبَقَتْ مِن رَّبِّكَ لَقُضِيَ بَيْنَهُمْ ۚ وَإِنَّهُمْ لَفِي شَكٍّ مِّنْهُ مُرِيبٍ",
+ transliteration: "Wa laqad ataina musal kitaba fakhtulifa fih, wa laula kalimatun sabaqat mir rabbika la qudiya bainahum, wa innahum la fi syakkim minhu murib",
+ translation: "Dan sesungguhnya telah Kami berikan kitab kepada Musa, lalu diperselisihkan tentang kitab itu. Kalau tidaklah karena sesuatu ketetapan yang telah ada dari Tuhanmu, tentu telah diberikan keputusan di antara mereka. Dan sesungguhnya mereka benar-benar dalam keraguan yang mendalam tentang Al Quran."
+ },
+ {
+ number: 111,
+ arabic: "وَإِنَّ كُلًّا لَّمَّا لَيُوَفِّيَنَّهُمْ رَبُّكَ أَعْمَالَهُمْ ۚ إِنَّهُ بِمَا يَعْمَلُونَ خَبِيرٌ",
+ transliteration: "Wa inna kullal lamma la yuwaffiyyannahum rabbuka a'malahum, innahu bima ya'maluna khabir",
+ translation: "Dan sesungguhnya kepada masing-masing mereka pasti Tuhanmu akan menyempurnakan (pembalasan) pekerjaan mereka. Sesungguhnya Dia Maha Mengetahui apa yang mereka kerjakan."
+ },
+ {
+ number: 112,
+ arabic: "فَاسْتَقِمْ كَمَا أُمِرْتَ وَمَن تَابَ مَعَكَ وَلَا تَطْغَوْا ۚ إِنَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ",
+ transliteration: "Fastaqim kama umirta wa man taba ma'aka wa la tatgau, innahu bima ta'maluna basir",
+ translation: "Maka tetaplah kamu pada jalan yang benar, sebagaimana diperintahkan kepadamu dan (juga) orang yang telah taubat beserta kamu dan janganlah kamu melampaui batas. Sesungguhnya Dia Maha Melihat apa yang kamu kerjakan."
+ },
+ {
+ number: 113,
+ arabic: "وَلَا تَرْكَنُوا إِلَى الَّذِينَ ظَلَمُوا فَتَمَسَّكُمُ النَّارُ وَمَا لَكُم مِّن دُونِ اللَّهِ مِنْ أَوْلِيَاءَ ثُمَّ لَا تُنصَرُونَ",
+ transliteration: "Wa la tarkanu ilallazina zalamu fa tamassakumun naru wa ma lakum min dunillahi min auliya'a summa la tunsarun",
+ translation: "Dan janganlah kamu cenderung kepada orang-orang yang zalim yang menyebabkan kamu disentuh api neraka, dan sekali-kali kamu tiada mempunyai seorang penolongpun selain daripada Allah, kemudian kamu tidak akan diberi pertolongan."
+ },
+ {
+ number: 114,
+ arabic: "وَأَقِمِ الصَّلَاةَ طَرَفَيِ النَّهَارِ وَزُلَفًا مِّنَ اللَّيْلِ ۚ إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ ۚ ذَٰلِكَ ذِكْرَىٰ لِلذَّاكِرِينَ",
+ transliteration: "Wa aqimis salata tarafain nahari wa zulafam minal lail, innal hasanati yuzhib nas sayyi'at, zalika zikra liz zakirin",
+ translation: "Dan dirikanlah sembahyang itu pada kedua tepi siang (pagi dan petang) dan pada bahagian permulaan daripada malam. Sesungguhnya perbuatan-perbuatan yang baik itu menghapuskan (dosa) perbuatan-perbuatan yang buruk. Itulah peringatan bagi orang-orang yang ingat."
+ },
+ {
+ number: 115,
+ arabic: "وَاصْبِرْ فَإِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ",
+ transliteration: "Wasbir fa innallaha la yudi'u ajral muhsinin",
+ translation: "Dan bersabarlah, karena sesungguhnya Allah tiada menyia-nyiakan pahala orang-orang yang berbuat kebaikan."
+ },
  {
  number: 116,
  arabic: "فَلَوْلَا كَانَ مِنَ الْقُرُونِ مِن قَبْلِكُمْ أُولُو بَقِيَّةٍ يَنْهَوْنَ عَنِ الْفَسَادِ فِي الْأَرْضِ إِلَّا قَلِيلًا مِّمَّنْ أَنجَيْنَا مِنْهُمْ ۗ وَاتَّبَعَ الَّذِينَ ظَلَمُوا مَا أُتْرِفُوا فِيهِ وَكَانُوا مُجْرِمِينَ",
@@ -98,7 +98,6 @@ a sya'a rabbuk, inna rabbaka fa''alul lima yurid",
  arabic: "وَلِلَّهِ غَيْبُ السَّمَاوَاتِ وَالْأَرْضِ وَإِلَيْهِ يُرْجَعُ الْأَمْرُ كُلُّهُ فَاعْبُدْهُ وَتَوَكَّلْ عَلَيْهِ ۚ وَمَا رَبُّكَ بِغَافِلٍ عَمَّا تَعْمَلُونَ",
  transliteration: "Wa lillahi ghaibus samawati wal ardi wa ilaihi yurja'ul amru kulluhu fa'budhu wa tawakkal 'alaih, wa ma rabbuka bi gafilin 'amma ta'malun",
  translation: "Dan kepunyaan Allah-lah apa yang ghaib di langit dan di bumi dan kepada-Nya-lah dikembalikan urusan-urusan semuanya, maka sembahlah Dia, dan bertawakkallah kepada-Nya. Dan sekali-kali Tuhanmu tidak lalai dari apa yang kamu kerjakan."
- }
  ];
 
   // ============================================================================
