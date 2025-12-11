@@ -1,0 +1,544 @@
+/**
+ * Surah Hud Interactive Tool Styles
+ * Copyright © 2024 ilmualam.com
+ * Optimized for Core Web Vitals & Mobile-First
+ */
+
+:root {
+  --primary-light: #1e7e34;
+  --primary-dark: #0a4d1e;
+  --accent: #28a745;
+  --bg-light: #f8fdf9;
+  --bg-white: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-gray: #666666;
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#surah-hud-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-light);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================================
+   HEADER STYLES
+   ============================================================================ */
+.surah-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+  margin: -20px -20px 24px -20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.surah-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path fill="rgba(255,255,255,0.05)" d="M0,0 L1200,0 L1200,40 Q600,100 0,40 Z"/></svg>') repeat-x bottom;
+  opacity: 0.3;
+}
+
+.surah-title {
+  font-size: clamp(2.5em, 5vw, 3.5em);
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  direction: rtl;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.surah-title-malay {
+  font-size: clamp(1.2em, 3vw, 1.6em);
+  margin: 12px 0;
+  font-weight: 500;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+}
+
+.surah-meta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.meta-item {
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  font-size: 0.95em;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: var(--transition);
+}
+
+.meta-item:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+
+/* ============================================================================
+   AUDIO CONTROLS
+   ============================================================================ */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-white);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+}
+
+.audio-controls:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.control-btn {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.control-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.control-btn:active {
+  transform: scale(0.98);
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.audio-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-light) 0%, var(--accent) 100%);
+  width: 0%;
+  transition: width 0.1s linear;
+  border-radius: 3px;
+}
+
+.audio-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  color: var(--text-gray);
+}
+
+#currentVerse {
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.qari-select {
+  padding: 10px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: white;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: var(--transition);
+  max-width: 220px;
+}
+
+.qari-select:hover {
+  border-color: var(--primary-light);
+}
+
+.qari-select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(30, 126, 52, 0.1);
+}
+
+/* ============================================================================
+   SETTINGS PANEL
+   ============================================================================ */
+.settings-panel {
+  background: var(--bg-white);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.settings-toggle {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--primary-light);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.settings-toggle:hover {
+  background: var(--primary-dark);
+}
+
+.settings-content {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.setting-item {
+  margin-bottom: 20px;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-item label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.setting-item input[type="range"] {
+  width: 100%;
+  max-width: 300px;
+  margin-right: 12px;
+}
+
+.setting-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+  accent-color: var(--primary-light);
+}
+
+/* ============================================================================
+   VERSES CONTAINER
+   ============================================================================ */
+.verses-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.verse-card {
+  background: var(--bg-white);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+
+.verse-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.verse-card.active {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(30, 126, 52, 0.1);
+}
+
+.verse-number {
+  display: inline-block;
+  background: var(--primary-light);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 16px;
+}
+
+.verse-arabic {
+  font-size: 28px;
+  line-height: 2.2;
+  direction: rtl;
+  text-align: right;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  font-family: 'Traditional Arabic', 'Al Qalam', 'Lateef', serif;
+  font-weight: 400;
+}
+
+.verse-transliteration {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-gray);
+  margin-bottom: 12px;
+  font-style: italic;
+  padding: 12px;
+  background: rgba(30, 126, 52, 0.03);
+  border-left: 3px solid var(--primary-light);
+  border-radius: 4px;
+}
+
+.verse-translation {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+
+.verse-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.action-btn {
+  padding: 8px 16px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn:hover {
+  background: var(--primary-light);
+  color: white;
+  border-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================================
+   TOAST NOTIFICATION
+   ============================================================================ */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--primary-dark);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ============================================================================
+   LOADING STATE
+   ============================================================================ */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-gray);
+}
+
+.spinner {
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-light);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+@media (max-width: 768px) {
+  #surah-hud-container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .surah-header {
+    padding: 30px 16px;
+    margin: -16px -16px 20px -16px;
+  }
+
+  .audio-controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .qari-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .verse-card {
+    padding: 20px 16px;
+  }
+
+  .verse-arabic {
+    font-size: 24px;
+    line-height: 2;
+  }
+
+  .verse-transliteration,
+  .verse-translation {
+    font-size: 15px;
+  }
+
+  .verse-actions {
+    gap: 8px;
+  }
+
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: calc(50% - 4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .surah-title {
+    font-size: 2.2em;
+  }
+
+  .surah-title-malay {
+    font-size: 1.1em;
+  }
+
+  .meta-item {
+    padding: 8px 14px;
+    font-size: 0.85em;
+  }
+
+  .verse-arabic {
+    font-size: 22px;
+  }
+
+  .control-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* ============================================================================
+   PRINT STYLES
+   ============================================================================ */
+@media print {
+  .audio-controls,
+  .settings-panel,
+  .verse-actions,
+  .toast {
+    display: none !important;
+  }
+
+  .verse-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+  }
+
+  .surah-header {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================================
+   DARK MODE SUPPORT (Optional)
+   ============================================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-light: #1a1a1a;
+    --bg-white: #2a2a2a;
+    --text-dark: #ffffff;
+    --text-gray: #a0a0a0;
+    --border-color: #404040;
+  }
+}
