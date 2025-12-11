@@ -1,6 +1,6 @@
 const surahData = [
   {
-ā syā'a rabbuk, inna rabbaka fa''ālul lima yurid",
+a sya'a rabbuk, inna rabbaka fa''alul lima yurid",
       translation: "mereka kekal di dalamnya selama ada langit dan bumi, kecuali jika Tuhanmu menghendaki (yang lain). Sesungguhnya Tuhanmu Maha Pelaksana terhadap apa yang Dia kehendaki."
     },
     {
