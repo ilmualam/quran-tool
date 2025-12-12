@@ -85,8 +85,8 @@
                     <h3>🎧 Pembaca Surah Al-Jinn Interaktif</h3>
                     <div class="ilm-x-controls">
                         <button class="ilm-x-btn ilm-x-btn-search" onclick="window.ilmJinnReader.toggleSearch()" title="Cari Ayat">🔍</button>
-                        <button class="ilm-x-btn ilm-x-btn-bookmarks" onclick="window.ilmJinnReader.showBookmarks()" title="Lihat Penanda Buku">📑 <span class="ilm-x-bookmark-count">0</span></button>
-                        <button class="ilm-x-btn ilm-x-btn-share" onclick="window.ilmJinnReader.share()" title="Kongsi">📤</button>
+                        <button class="ilm-x-btn ilm-x-btn-bookmarks" onclick="window.ilmJinnReader.showBookmarks()" title="Lihat Bookmark">📑 <span class="ilm-x-bookmark-count">0</span></button>
+                        <button class="ilm-x-btn ilm-x-btn-share" onclick="window.ilmJinnReader.share()" title="Share">📤</button>
                     </div>
                 </div>
                 
@@ -101,8 +101,8 @@
                     </div>
                     <div class="ilm-x-player-controls">
                         <button class="ilm-x-btn-prev" onclick="window.ilmJinnReader.prevVerse()" title="Ayat Sebelum">⏮</button>
-                        <button class="ilm-x-btn-play" onclick="window.ilmJinnReader.togglePlay()" title="Main/Jeda">▶️</button>
-                        <button class="ilm-x-btn-next" onclick="window.ilmJinnReader.nextVerse()" title="Ayat Seterus">⏭</button>
+                        <button class="ilm-x-btn-play" onclick="window.ilmJinnReader.togglePlay()" title="Play/Pause">▶️</button>
+                        <button class="ilm-x-btn-next" onclick="window.ilmJinnReader.nextVerse()" title="Ayat Seterusnya">⏭</button>
                         <span class="ilm-x-verse-num">Ayat 1/28</span>
                     </div>
                 </div>
