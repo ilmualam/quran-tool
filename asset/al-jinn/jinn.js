@@ -1,31 +1,29 @@
 /*!
  * Surah Al-Jinn Interactive Reader Tool (FIXED)
- * Version: 1.1.0
- * Author: IlmuAlam.com
- * License: MIT
+ * - Audio diambil terus dari API audio edition (bukan hardcode global number)
+ * - Search tak rosakkan index (play ikut verse sebenar)
+ * - Fallback audioSecondary mp3 -> audio
  */
 
 (function () {
   "use strict";
 
   const SURAH_NUM = 72;
-  const TOTAL_VERSES = 28;
-
   const API_BASE = "https://api.alquran.cloud/v1";
 
-  // Storage keys
+  // Editions (tambah audio edition ar.alafasy)
+  const EDITIONS = "quran-simple,en.transliteration,ms.basmeih,ar.alafasy";
+
   const STORAGE_KEY = "ilm_jinn_bookmarks";
   const LAST_VERSE_KEY = "ilm_jinn_last_verse";
 
-  let verses = []; // master list (idx = ayatIndex asal)
-  let currentVerse = 0;
+  let verses = [];            // full list (source of truth)
+  let viewVerses = [];        // list yang sedang dipaparkan (untuk search)
+  let currentVerse = 0;       // index dalam verses[]
   let audio = null;
   let bookmarks = [];
   let isPlaying = false;
 
-  // -----------------------------
-  // INIT
-  // -----------------------------
   function init() {
     const container = document.getElementById("surahJinnTool");
     if (!container) return;
@@ -35,14 +33,10 @@
     fetchVerses();
   }
 
-  // -----------------------------
-  // BOOKMARK STORAGE
-  // -----------------------------
   function loadBookmarks() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       bookmarks = stored ? JSON.parse(stored) : [];
-      if (!Array.isArray(bookmarks)) bookmarks = [];
     } catch (e) {
       bookmarks = [];
     }
@@ -51,14 +45,9 @@
   function saveBookmarks() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
-    } catch (e) {
-      console.warn("Cannot save bookmarks");
-    }
+    } catch (e) {}
   }
 
-  // -----------------------------
-  // UI
-  // -----------------------------
   function renderUI(container) {
     container.innerHTML = `
       <div class="ilm-x-reader">
@@ -66,9 +55,7 @@
           <h3>🎧 Tool Interaktif Surah Al-Jinn</h3>
           <div class="ilm-x-controls">
             <button class="ilm-x-btn ilm-x-btn-search" onclick="window.ilmJinnReader.toggleSearch()" title="Cari Ayat">🔍</button>
-            <button class="ilm-x-btn ilm-x-btn-bookmarks" onclick="window.ilmJinnReader.showBookmarks()" title="Lihat Bookmark">
-              📑 <span class="ilm-x-bookmark-count">0</span>
-            </button>
+            <button class="ilm-x-btn ilm-x-btn-bookmarks" onclick="window.ilmJinnReader.showBookmarks()" title="Lihat Bookmark">📑 <span class="ilm-x-bookmark-count">0</span></button>
             <button class="ilm-x-btn ilm-x-btn-share" onclick="window.ilmJinnReader.share()" title="Share">📤</button>
           </div>
         </div>
@@ -86,7 +73,7 @@
             <button class="ilm-x-btn-prev" onclick="window.ilmJinnReader.prevVerse()" title="Ayat Sebelum">⏮</button>
             <button class="ilm-x-btn-play" onclick="window.ilmJinnReader.togglePlay()" title="Play/Pause">▶️</button>
             <button class="ilm-x-btn-next" onclick="window.ilmJinnReader.nextVerse()" title="Ayat Seterusnya">⏭</button>
-            <span class="ilm-x-verse-num">Ayat 1/${TOTAL_VERSES}</span>
+            <span class="ilm-x-verse-num">Ayat 1/28</span>
           </div>
         </div>
 
@@ -99,85 +86,86 @@
     updateBookmarkCount();
   }
 
-  // -----------------------------
-  // FETCH (ARABIC + RUMI + MALAY + AUDIO)
-  // -----------------------------
   async function fetchVerses() {
     const container = document.querySelector(".ilm-x-verses-container");
 
     try {
-      // PENTING: ambil audio dari API terus (confirm tak lari surah)
-      const url = `${API_BASE}/surah/${SURAH_NUM}/editions/quran-simple,en.transliteration,ms.basmeih,ar.alafasy`;
-      const response = await fetch(url, { cache: "no-store" });
-      const data = await response.json();
+      const url = `${API_BASE}/surah/${SURAH_NUM}/editions/${EDITIONS}`;
+      const res = await fetch(url);
+      const data = await res.json();
 
-      if (data.code !== 200 || !data.data || data.data.length < 4) {
+      if (data.code !== 200 || !Array.isArray(data.data) || data.data.length < 4) {
         throw new Error("Invalid API response");
       }
 
-      const arabic = data.data[0].ayahs;
-      const rumi = data.data[1].ayahs;
-      const malay = data.data[2].ayahs;
-      const audioAyah = data.data[3].ayahs;
+      const arabicAyahs = data.data[0].ayahs;
+      const rumiAyahs = data.data[1].ayahs;
+      const malayAyahs = data.data[2].ayahs;
+      const audioAyahs = data.data[3].ayahs; // ar.alafasy
 
-      verses = arabic.map((_, i) => ({
-        idx: i, // index asal (0..27)
-        number: i + 1,
-        arabic: arabic[i]?.text || "",
-        rumi: rumi[i]?.text || "",
-        malay: malay[i]?.text || "",
-        audio: audioAyah[i]?.audio || "" // URL penuh dari API
-      }));
+      // Build verses using GLOBAL number dari API (no hardcode!)
+      verses = arabicAyahs.map((a, i) => {
+        const globalNum = a.number; // global ayah number from API
+        const audioUrl =
+          (audioAyahs[i] && Array.isArray(audioAyahs[i].audioSecondary) && audioAyahs[i].audioSecondary[0]) ||
+          (audioAyahs[i] && audioAyahs[i].audio) ||
+          "";
 
-      renderVerses(verses);
+        return {
+          number: i + 1,
+          globalNum,
+          arabic: a.text,
+          rumi: (rumiAyahs[i] && rumiAyahs[i].text) || "",
+          malay: (malayAyahs[i] && malayAyahs[i].text) || "",
+          audio: audioUrl
+        };
+      });
 
-      // Load last read verse
-      const lastVerse = localStorage.getItem(LAST_VERSE_KEY);
-      if (lastVerse) {
-        const num = parseInt(lastVerse, 10);
-        if (!Number.isNaN(num) && num >= 1 && num <= TOTAL_VERSES) {
-          currentVerse = num - 1;
-          scrollToVerse(currentVerse);
-          highlightVerse(currentVerse);
-          updateVerseDisplay();
-        }
+      // default view = all
+      viewVerses = verses.map((v, idx) => ({ ...v, _idx: idx }));
+      renderVerses(viewVerses);
+
+      // restore last read (1..N)
+      const lastVerse = parseInt(localStorage.getItem(LAST_VERSE_KEY) || "0", 10);
+      if (lastVerse >= 1 && lastVerse <= verses.length) {
+        currentVerse = lastVerse - 1;
+        scrollToVerse(currentVerse);
+        updateVerseDisplay();
       }
-    } catch (error) {
+    } catch (err) {
+      console.error("Fetch error:", err);
       container.innerHTML = `
         <div class="ilm-x-error">
           <p>❌ Maaf, gagal memuatkan ayat. Sila semak sambungan internet anda.</p>
           <button class="ilm-x-btn-retry" onclick="window.ilmJinnReader.retry()">🔄 Cuba Lagi</button>
         </div>
       `;
-      console.error("Fetch error:", error);
     }
   }
 
-  // -----------------------------
-  // RENDER VERSES
-  // FIX: guna idx asal, supaya search tak kacau mapping audio/ayat
-  // -----------------------------
-  function renderVerses(list) {
+  // viewList = [{...verse, _idx: originalIndexInVerses}]
+  function renderVerses(viewList) {
     const container = document.querySelector(".ilm-x-verses-container");
 
-    const html = list
+    const html = viewList
       .map((v) => {
-        const marked = bookmarks.includes(v.number);
+        const realIndex = v._idx;
+        const isBm = bookmarks.includes(v.number);
+
         return `
-          <div class="ilm-x-verse ${marked ? "ilm-x-bookmarked" : ""}" data-verse="${v.idx}" id="verse-${v.idx}">
+          <div class="ilm-x-verse ${isBm ? "ilm-x-bookmarked" : ""}" data-verse="${realIndex}" id="verse-${realIndex}">
             <div class="ilm-x-verse-header">
               <span class="ilm-x-verse-badge">Ayat ${v.number}</span>
-              <button class="ilm-x-btn-bookmark ${marked ? "active" : ""}"
-                      onclick="window.ilmJinnReader.toggleBookmark(${v.number})" title="Tandabuku">
-                ${marked ? "🔖" : "📌"}
+              <button class="ilm-x-btn-bookmark ${isBm ? "active" : ""}" onclick="window.ilmJinnReader.toggleBookmark(${v.number})" title="Tandabuku">
+                ${isBm ? "🔖" : "📌"}
               </button>
             </div>
             <div class="ilm-x-arabic">${escapeHTML(v.arabic)}</div>
             <div class="ilm-x-rumi">${escapeHTML(v.rumi)}</div>
             <div class="ilm-x-translation">${escapeHTML(v.malay)}</div>
             <div class="ilm-x-verse-actions">
-              <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.playVerse(${v.idx})" title="Main Audio">🔊 Audio</button>
-              <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.copyVerse(${v.idx})" title="Salin">📋 Copy</button>
+              <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.playVerse(${realIndex})" title="Main Audio">🔊 Audio</button>
+              <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.copyVerse(${realIndex})" title="Salin">📋 Copy</button>
             </div>
           </div>
         `;
@@ -188,91 +176,60 @@
     updateVerseDisplay();
   }
 
-  // -----------------------------
-  // AUDIO CORE
-  // -----------------------------
-  function stopAudio() {
-    if (!audio) return;
-    try {
-      audio.pause();
-      audio.src = "";
-      audio.load();
-    } catch (e) {}
-    audio = null;
-    isPlaying = false;
-    updatePlayButton();
-    updateProgressBar(true);
-  }
-
   function playVerse(index) {
     if (index < 0 || index >= verses.length) return;
 
     currentVerse = index;
     const verse = verses[index];
-    if (!verse || !verse.audio) {
-      alert("Audio tidak dijumpai untuk ayat ini.");
+
+    if (!verse.audio) {
+      alert("Audio untuk ayat ini tiada.");
       return;
     }
 
-    // stop previous
-    stopAudio();
+    if (audio) {
+      audio.pause();
+      audio.src = "";
+      audio = null;
+    }
 
     audio = new Audio();
     audio.preload = "auto";
-    audio.volume = 1.0;
     audio.src = verse.audio;
+    audio.volume = 1.0;
 
-    const onTimeUpdate = () => updateProgressBar(false);
-    const onEnded = () => {
+    // penting: cuba play bila metadata ready (lebih stabil dari canplay je)
+    const tryPlay = () => {
+      audio.play().then(() => {
+        isPlaying = true;
+        updatePlayButton();
+        highlightVerse(index);
+        scrollToVerse(index);
+        updateProgressBar();
+        localStorage.setItem(LAST_VERSE_KEY, String(verse.number));
+      }).catch((e) => {
+        // Autoplay policy / user gesture issue
+        isPlaying = false;
+        updatePlayButton();
+        console.warn("Play blocked:", e);
+      });
+    };
+
+    audio.addEventListener("loadedmetadata", tryPlay, { once: true });
+    audio.addEventListener("timeupdate", updateProgressBar);
+
+    audio.addEventListener("ended", () => {
       isPlaying = false;
       updatePlayButton();
-      // autoplay next ayat
-      if (currentVerse < verses.length - 1) {
-        setTimeout(() => playVerse(currentVerse + 1), 650);
-      }
-    };
-    const onError = (e) => {
-      console.error("Audio error:", e);
+      if (index < verses.length - 1) setTimeout(() => playVerse(index + 1), 600);
+    });
+
+    audio.addEventListener("error", (e) => {
+      console.error("Audio error:", e, verse.audio);
       alert("Audio gagal dimainkan. Cuba lagi.");
       isPlaying = false;
       updatePlayButton();
-      updateProgressBar(true);
-    };
-
-    audio.addEventListener("timeupdate", onTimeUpdate);
-    audio.addEventListener("ended", onEnded);
-    audio.addEventListener("error", onError);
-
-    // play (handle browser promise)
-    const startPlayback = () => {
-      const p = audio.play();
-      isPlaying = true;
-      updatePlayButton();
-      highlightVerse(index);
-      scrollToVerse(index);
-      updateProgressBar(true);
-
-      // Save last read
-      try {
-        localStorage.setItem(LAST_VERSE_KEY, String(verse.number));
-      } catch (e) {}
-
-      if (p && typeof p.catch === "function") {
-        p.catch((err) => {
-          console.warn("Autoplay blocked:", err);
-          // fallback: show play icon (user click)
-          isPlaying = false;
-          updatePlayButton();
-        });
-      }
-    };
-
-    // kalau canplay cepat, terus play
-    if (audio.readyState >= 2) {
-      startPlayback();
-    } else {
-      audio.addEventListener("canplay", startPlayback, { once: true });
-    }
+    });
   }
 
   function togglePlay() {
@@ -287,14 +244,11 @@
       audio.pause();
       isPlaying = false;
     } else {
-      const p = audio.play();
-      isPlaying = true;
-      if (p && typeof p.catch === "function") {
-        p.catch(() => {
-          isPlaying = false;
-          updatePlayButton();
-        });
-      }
+      audio.play().then(() => {
+        isPlaying = true;
+      }).catch(() => {
+        isPlaying = false;
+      });
     }
     updatePlayButton();
   }
@@ -307,14 +261,10 @@
     if (currentVerse < verses.length - 1) playVerse(currentVerse + 1);
   }
 
-  // -----------------------------
-  // HIGHLIGHT / SCROLL / DISPLAY
-  // -----------------------------
   function highlightVerse(index) {
     document.querySelectorAll(".ilm-x-verse").forEach((el) => {
-      const v = parseInt(el.getAttribute("data-verse"), 10);
-      if (v === index) el.classList.add("ilm-x-active");
-      else el.classList.remove("ilm-x-active");
+      const v = parseInt(el.getAttribute("data-verse") || "-1", 10);
+      el.classList.toggle("ilm-x-active", v === index);
     });
     updateVerseDisplay();
   }
@@ -334,25 +284,16 @@
   function updateVerseDisplay() {
     const display = document.querySelector(".ilm-x-verse-num");
     if (!display) return;
-    display.textContent = `Ayat ${currentVerse + 1}/${TOTAL_VERSES}`;
+    display.textContent = `Ayat ${currentVerse + 1}/${verses.length || 28}`;
   }
 
-  function updateProgressBar(reset) {
+  function updateProgressBar() {
+    if (!audio || !audio.duration || Number.isNaN(audio.duration)) return;
+    const progress = (audio.currentTime / audio.duration) * 100;
     const bar = document.querySelector(".ilm-x-progress");
-    if (!bar) return;
-
-    if (reset || !audio || !audio.duration || Number.isNaN(audio.duration)) {
-      bar.style.width = "0%";
-      return;
-    }
-
-    const pct = Math.max(0, Math.min(100, (audio.currentTime / audio.duration) * 100));
-    bar.style.width = pct + "%";
+    if (bar) bar.style.width = `${progress}%`;
   }
 
-  // -----------------------------
-  // BOOKMARK
-  // -----------------------------
   function toggleBookmark(verseNum) {
     const idx = bookmarks.indexOf(verseNum);
     if (idx > -1) bookmarks.splice(idx, 1);
@@ -361,16 +302,14 @@
     saveBookmarks();
     updateBookmarkCount();
 
-    // Update UI (target verse by idx asal = verseNum-1)
-    const verseIdx = verseNum - 1;
-    const verseEl = document.querySelector(`.ilm-x-verse[data-verse="${verseIdx}"]`);
-    const btnEl = verseEl ? verseEl.querySelector(".ilm-x-btn-bookmark") : null;
-
+    // refresh icon state if verse exists in DOM
+    const verseEl = document.querySelector(`.ilm-x-verse[data-verse="${verseNum - 1}"]`);
+    const btnEl = verseEl?.querySelector(".ilm-x-btn-bookmark");
     if (verseEl && btnEl) {
-      const marked = bookmarks.includes(verseNum);
-      verseEl.classList.toggle("ilm-x-bookmarked", marked);
-      btnEl.classList.toggle("active", marked);
-      btnEl.textContent = marked ? "🔖" : "📌";
+      const on = bookmarks.includes(verseNum);
+      verseEl.classList.toggle("ilm-x-bookmarked", on);
+      btnEl.classList.toggle("active", on);
+      btnEl.textContent = on ? "🔖" : "📌";
     }
   }
 
@@ -390,75 +329,59 @@
     const choice = confirm(`Ayat yang ditanda:\n${list}\n\nKlik OK untuk pergi ke ayat pertama yang ditanda.`);
     if (choice) {
       const first = Math.min(...bookmarks);
-      const idx = first - 1;
-      scrollToVerse(idx);
-      highlightVerse(idx);
+      scrollToVerse(first - 1);
+      highlightVerse(first - 1);
     }
   }
 
-  // -----------------------------
-  // SEARCH
-  // FIX: filter tapi maintain idx asal (audio tak lari)
-  // -----------------------------
   function toggleSearch() {
     const searchBox = document.querySelector(".ilm-x-search-box");
     const input = document.querySelector(".ilm-x-search-input");
     if (!searchBox || !input) return;
 
-    const isHidden = searchBox.style.display === "none" || !searchBox.style.display;
-    if (isHidden) {
+    const isOpen = searchBox.style.display !== "none";
+    if (!isOpen) {
       searchBox.style.display = "flex";
       input.value = "";
       input.focus();
-      input.removeEventListener("input", handleSearch);
       input.addEventListener("input", handleSearch);
     } else {
       searchBox.style.display = "none";
       input.value = "";
-      renderVerses(verses);
+      viewVerses = verses.map((v, idx) => ({ ...v, _idx: idx }));
+      renderVerses(viewVerses);
     }
   }
 
   function handleSearch(e) {
-    const query = (e.target.value || "").toLowerCase().trim();
-    if (!query) {
-      renderVerses(verses);
+    const q = (e.target.value || "").toLowerCase().trim();
+    if (!q) {
+      viewVerses = verses.map((v, idx) => ({ ...v, _idx: idx }));
+      renderVerses(viewVerses);
       return;
     }
 
-    const filtered = verses.filter((v) => {
-      return (
-        (v.rumi || "").toLowerCase().includes(query) ||
-        (v.malay || "").toLowerCase().includes(query) ||
-        String(v.number) === query
+    const filtered = verses
+      .map((v, idx) => ({ ...v, _idx: idx }))
+      .filter((v) =>
+        (v.rumi || "").toLowerCase().includes(q) ||
+        (v.malay || "").toLowerCase().includes(q) ||
+        String(v.number) === q
       );
-    });
 
-    if (filtered.length > 0) {
-      renderVerses(filtered);
-    } else {
-      const container = document.querySelector(".ilm-x-verses-container");
-      if (container) container.innerHTML = '<div class="ilm-x-no-result">🔍 Tiada hasil ditemui</div>';
-    }
+    if (filtered.length) renderVerses(filtered);
+    else document.querySelector(".ilm-x-verses-container").innerHTML = '<div class="ilm-x-no-result">🔍 Tiada hasil ditemui</div>';
   }
 
-  // -----------------------------
-  // COPY
-  // -----------------------------
   function copyVerse(index) {
     const verse = verses[index];
     if (!verse) return;
 
     const text = `Surah Al-Jinn (72:${verse.number})\n\n${verse.arabic}\n\n${verse.rumi}\n\n${verse.malay}\n\nDaripada: IlmuAlam.com`;
 
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard
-        .writeText(text)
-        .then(() => alert("✅ Ayat berjaya disalin!"))
-        .catch(() => fallbackCopy(text));
-    } else {
-      fallbackCopy(text);
-    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => alert("✅ Ayat berjaya disalin!")).catch(() => fallbackCopy(text));
+    } else fallbackCopy(text);
   }
 
   function fallbackCopy(text) {
@@ -477,45 +400,29 @@
     document.body.removeChild(textarea);
   }
 
-  // -----------------------------
-  // SHARE
-  // -----------------------------
   function share() {
     const url = window.location.href;
     const text = "Baca Surah Al-Jinn lengkap dengan audio, rumi & terjemahan di IlmuAlam.com";
-
-    if (navigator.share) {
-      navigator.share({ title: "Surah Al-Jinn", text, url }).catch(() => {});
-    } else {
-      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-      window.open(shareUrl, "_blank", "width=600,height=400");
-    }
+    if (navigator.share) navigator.share({ title: "Surah Al-Jinn", text, url }).catch(() => {});
+    else window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank", "width=600,height=400");
   }
 
-  // -----------------------------
-  // RETRY
-  // -----------------------------
   function retry() {
-    stopAudio();
     const container = document.querySelector(".ilm-x-verses-container");
     if (container) container.innerHTML = '<div class="ilm-x-loading">⏳ Memuatkan ayat-ayat...</div>';
     fetchVerses();
   }
 
-  // -----------------------------
-  // HELPERS
-  // -----------------------------
+  // simple HTML escape (elak markup pelik masuk DOM)
   function escapeHTML(str) {
-    // ringan, elak HTML pecah bila ada karakter tertentu
     return String(str || "")
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;");
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  // -----------------------------
-  // EXPOSE
-  // -----------------------------
   window.ilmJinnReader = {
     togglePlay,
     prevVerse,
@@ -529,10 +436,6 @@
     retry
   };
 
-  // auto init
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
