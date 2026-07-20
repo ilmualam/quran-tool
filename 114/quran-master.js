@@ -1,3 +1,16 @@
+/*!
+ * Al-Quran Online 30 Juzuk — Interactive Quran Reader (Rumi/Arab/Terjemahan/Audio)
+ * https://www.ilmualam.com/p/quran-online.html
+ *
+ * Copyright (c) 2020–present Ilmu Alam (ilmualam.com). All Rights Reserved.
+ *
+ * This source code is proprietary and protected under copyright law.
+ * Unauthorized copying, redistribution, or reuse of this file or its logic,
+ * in whole or in part, on any other website or application is prohibited
+ * without prior written permission from the copyright holder.
+ *
+ * Repository: https://github.com/ilmualam/quran-tool
+ */
 (function () {
   const API_BASE = 'https://api.alquran.cloud/v1';
 
@@ -7,6 +20,7 @@
   let currentSurahMeta = null;
   let playbackMode = 'single'; // 'single' | 'all'
   let currentIndex = -1;
+  let hasListHistoryEntry = false; // true once we've pushed a list state this session
 
   let deepLinkConfig = { surahKey: null, ayah: null };
 
@@ -39,6 +53,107 @@
     }
   }
 
+  // ====== SEARCH: normalization + alias table + fuzzy fallback ======
+  // Curated aliases for high-search-volume surah (extend as needed)
+  var SURAH_ALIASES = {
+    36: ['yasin', 'yassin', 'yaseen', 'yasiin', 'ys'],
+    67: ['almulk', 'mulk', 'tabarak'],
+    18: ['alkahfi', 'kahfi', 'kahf'],
+    55: ['arrahman', 'rahman', 'raccan'],
+    56: ['alwaqiah', 'waqiah', 'waqiyah'],
+    19: ['maryam', 'mariam'],
+    12: ['yusuf', 'joseph'],
+    11: ['hud'],
+    20: ['taha', 'thaha'],
+    4: ['annisa', 'nisa', 'anisa'],
+    2: ['albaqarah', 'baqarah', 'baqara'],
+    3: ['aliimran', 'aliimron', 'imran'],
+    1: ['alfatihah', 'fatihah', 'fatiha', 'alfateha'],
+    94: ['alinsyirah', 'insyirah', 'alsyarh', 'sharh'],
+    93: ['adduha', 'duha', 'dhuha'],
+    48: ['alfath', 'fath', 'fathu']
+  };
+
+  function normalizeText(str) {
+    return (str || '')
+      .toLowerCase()
+      .replace(/ee/g, 'i')
+      .replace(/oo/g, 'u')
+      .replace(/[^a-z0-9]/g, '')
+      .replace(/(.)\1+/g, '$1'); // collapse repeated letters: "yassin" -> "yasin"
+  }
+
+  function levenshtein(a, b) {
+    var m = a.length, n = b.length;
+    if (!m) return n;
+    if (!n) return m;
+    var row = [];
+    for (var i = 0; i <= n; i++) row[i] = i;
+    for (var i = 1; i <= m; i++) {
+      var prev = row[0];
+      row[0] = i;
+      for (var j = 1; j <= n; j++) {
+        var tmp = row[j];
+        row[j] = a[i - 1] === b[j - 1]
+          ? prev
+          : 1 + Math.min(prev, row[j], row[j - 1]);
+        prev = tmp;
+      }
+    }
+    return row[n];
+  }
+
+  function surahMatchesTerm(surah, rawTerm) {
+    var term = normalizeText(rawTerm);
+    if (!term) return true;
+    if (surah.number.toString() === rawTerm.trim()) return true;
+
+    var normName = normalizeText(surah.englishName);
+    var normTranslation = normalizeText(surah.englishNameTranslation);
+    if (normName.indexOf(term) !== -1 || normTranslation.indexOf(term) !== -1) return true;
+
+    var aliases = SURAH_ALIASES[surah.number];
+    if (aliases) {
+      for (var i = 0; i < aliases.length; i++) {
+        if (normalizeText(aliases[i]).indexOf(term) !== -1) return true;
+      }
+    }
+
+    // Fuzzy fallback for typos (only for reasonably long terms to avoid noise)
+    if (term.length >= 4) {
+      var window = normName.slice(0, term.length + 1);
+      if (levenshtein(term, window) <= 1) return true;
+    }
+
+    return false;
+  }
+
+  // ====== SEO: per-surah title/description/canonical swap ======
+  var metaDescEl = document.querySelector('meta[name="description"]');
+  var canonicalEl = document.querySelector('link[rel="canonical"]');
+  var baseTitle = document.title;
+  var baseDescription = metaDescEl ? metaDescEl.getAttribute('content') : '';
+  var baseCanonical = canonicalEl ? canonicalEl.getAttribute('href') : window.location.href;
+
+  function surahUrl(surah) {
+    return window.location.origin + window.location.pathname +
+      '?surah=' + surah.number + '-' + slugify(surah.englishName);
+  }
+
+  function applySurahSEO(surah) {
+    document.title = surah.englishName + ' (' + surah.englishNameTranslation + ') - Rumi, Terjemahan & Audio | Al-Quran Online';
+    var desc = 'Baca Surah ' + surah.englishName + ' (' + surah.englishNameTranslation + '), ' +
+      surah.numberOfAyahs + ' ayat, lengkap dengan teks Arab, Rumi, terjemahan Bahasa Melayu dan audio ayat demi ayat - percuma.';
+    if (metaDescEl) metaDescEl.setAttribute('content', desc);
+    if (canonicalEl) canonicalEl.setAttribute('href', surahUrl(surah));
+  }
+
+  function restoreMainSEO() {
+    document.title = baseTitle;
+    if (metaDescEl) metaDescEl.setAttribute('content', baseDescription);
+    if (canonicalEl) canonicalEl.setAttribute('href', baseCanonical);
+  }
+
   // ====== Once DOM ready ======
   document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('quran-app-container');
@@ -64,6 +179,14 @@
 
     parseDeepLink();
 
+    // Give the initial history entry a state object so popstate can
+    // tell it apart from a surah state later.
+    history.replaceState(
+      { surah: deepLinkConfig.surahKey || null, ayah: deepLinkConfig.ayah || null },
+      '',
+      window.location.href
+    );
+
     // ===== 1. Fetch Surah List =====
     fetch(API_BASE + '/surah')
       .then(function (res) { return res.json(); })
@@ -75,7 +198,7 @@
         if (deepLinkConfig.surahKey) {
           var target = allSurahs.find(function (s) { return s.number === deepLinkConfig.surahKey; });
           if (target) {
-            loadSurah(target, { targetAyah: deepLinkConfig.ayah });
+            loadSurah(target, { targetAyah: deepLinkConfig.ayah, historyMode: 'none' });
           }
         }
       })
@@ -101,7 +224,7 @@
           '<div class="surah-arabic">' + surah.name.replace("سورة ", "") + '</div>';
 
         card.addEventListener('click', function () {
-          loadSurah(surah);
+          loadSurah(surah, { historyMode: 'push' });
         });
         surahList.appendChild(card);
       });
@@ -110,13 +233,9 @@
     // ===== 3. Search Surah (header search input) =====
     if (searchInput) {
       searchInput.addEventListener('input', function (e) {
-        var term = e.target.value.toLowerCase().trim();
+        var term = e.target.value;
         var filtered = allSurahs.filter(function (s) {
-          return (
-            s.englishName.toLowerCase().indexOf(term) !== -1 ||
-            s.englishNameTranslation.toLowerCase().indexOf(term) !== -1 ||
-            s.number.toString() === term
-          );
+          return surahMatchesTerm(s, term);
         });
         renderSurahList(filtered);
       });
@@ -152,7 +271,20 @@
       });
     }
 
-    // ===== 5. Load Surah Details =====
+    // ===== 5. View toggles (shared by click, back button, popstate) =====
+    function showListView() {
+      stopAudio();
+      readerView.classList.add('hidden');
+      surahList.classList.remove('hidden');
+      var headerWrap = document.querySelector('.search-box');
+      if (headerWrap && headerWrap.parentElement) {
+        headerWrap.parentElement.classList.remove('hidden');
+      }
+      restoreMainSEO();
+      window.scrollTo(0, 0);
+    }
+
+    // ===== 6. Load Surah Details =====
     async function loadSurah(surah, options) {
       options = options || {};
       deepLinkConfig = { surahKey: surah.number, ayah: options.targetAyah || null };
@@ -161,6 +293,16 @@
         englishName: surah.englishName,
         englishNameTranslation: surah.englishNameTranslation
       };
+
+      if (options.historyMode === 'push') {
+        hasListHistoryEntry = true;
+        history.pushState(
+          { surah: surah.number, ayah: options.targetAyah || null },
+          '',
+          surahUrl(surah)
+        );
+      }
+      applySurahSEO(surah);
 
       surahList.classList.add('hidden');
       var headerWrap = document.querySelector('.search-box');
@@ -205,7 +347,7 @@
       }
     }
 
-    // ===== 6. Render Verses =====
+    // ===== 7. Render Verses =====
     function renderVerses(arabic, malay, rumi) {
       versesContainer.innerHTML = '';
       var fragment = document.createDocumentFragment();
@@ -269,7 +411,7 @@
       initVerseSearch();
     }
 
-    // ===== 7. Audio Manager (Single & Play All) =====
+    // ===== 8. Audio Manager (Single & Play All) =====
     function setupAudioPlayers() {
       currentButtons = Array.prototype.slice.call(
         document.querySelectorAll('.audio-btn')
@@ -345,7 +487,7 @@
       }
     }
 
-    // ===== 8. Search dalam Surah =====
+    // ===== 9. Search dalam Surah =====
     function initVerseSearch() {
       if (!verseSearchInput) return;
       verseSearchInput.removeEventListener('input', handleVerseSearch);
@@ -370,17 +512,62 @@
       });
     }
 
-    // ===== 9. Back Navigation =====
+    // ===== 10. Back Navigation (browser back + in-app button, unified) =====
+    window.addEventListener('popstate', function (e) {
+      var state = e.state;
+      if (state && state.surah) {
+        var target = allSurahs.find(function (s) { return s.number === state.surah; });
+        if (target) {
+          loadSurah(target, { targetAyah: state.ayah, historyMode: 'none' });
+          return;
+        }
+      }
+      showListView();
+    });
+
     if (backBtn) {
       backBtn.addEventListener('click', function () {
-        stopAudio();
-        readerView.classList.add('hidden');
-        surahList.classList.remove('hidden');
-        var headerWrap = document.querySelector('.search-box');
-        if (headerWrap && headerWrap.parentElement) {
-          headerWrap.parentElement.classList.remove('hidden');
+        if (hasListHistoryEntry) {
+          history.back();
+        } else {
+          // Arrived via direct deep link — no prior list entry to go back to,
+          // so create one instead of leaving the site.
+          hasListHistoryEntry = true;
+          history.pushState({ surah: null, ayah: null }, '', window.location.origin + window.location.pathname);
+          showListView();
         }
-        window.scrollTo(0, 0);
+      });
+    }
+
+    // ===== 11. Page-level Share Button =====
+    // Shares the current surah link if reading, otherwise shares the tool itself.
+    const pageShareBtn = document.getElementById('pageShareBtn');
+    if (pageShareBtn) {
+      pageShareBtn.addEventListener('click', function () {
+        var isReading = readerView && !readerView.classList.contains('hidden') && currentSurahMeta;
+        var url = isReading ? surahUrl(currentSurahMeta) : (window.location.origin + window.location.pathname);
+        var title = isReading
+          ? 'Al-Quran: Surah ' + currentSurahMeta.englishName + ' - Rumi & Terjemahan'
+          : 'Al-Quran Online 30 Juzuk - Rumi, Terjemahan & Audio';
+        var text = isReading
+          ? 'Baca Surah ' + currentSurahMeta.englishName + ' lengkap dengan Rumi, terjemahan BM dan audio, percuma.'
+          : 'Baca Al-Quran Online percuma - teks Arab, Rumi, terjemahan BM dan audio ayat demi ayat.';
+
+        if (navigator.share) {
+          navigator.share({ title: title, text: text, url: url }).catch(function (err) {
+            console.error(err);
+          });
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url)
+            .then(function () {
+              alert('Pautan telah disalin. Boleh tampal di WhatsApp / media sosial.');
+            })
+            .catch(function () {
+              alert('Tidak dapat berkongsi secara automatik. Sila salin pautan secara manual: ' + url);
+            });
+        } else {
+          alert('Pautan: ' + url);
+        }
       });
     }
   });
@@ -446,27 +633,13 @@
     }
   };
 
+  // FIX: was guessing the surah number from the URL (which was never set),
+  // always defaulting to "1-" — every shared link pointed to Al-Fatihah
+  // regardless of which surah the user was actually reading.
+  // Now uses the in-memory currentSurahMeta, which is always correct.
   function buildShareUrl(surahName, verseNum) {
-    var params = new URLSearchParams(window.location.search);
-    // Kalau ada deeplink surah sebelum ni, kekalkan.
-    var currentSurahNumber = params.get('surah');
-    var surahId = null;
-
-    // Kita cuba baca dari global state yang disimpan pada URL (pattern: ?surah=2-al-baqarah)
-    if (currentSurahNumber && currentSurahNumber.indexOf('-') > -1) {
-      surahId = currentSurahNumber;
-    } else if (currentSurahNumber && !isNaN(parseInt(currentSurahNumber, 10))) {
-      // fallback lama kalau ada
-      surahId = parseInt(currentSurahNumber, 10) + '-' + slugify(surahName);
-    }
-
-    if (!surahId) {
-      // default kalau user buka dari main page tanpa param
-      // (contoh: /p/quran-online.html)
-      var baseSurahId = '1-' + slugify(surahName);
-      surahId = baseSurahId;
-    }
-
+    var surahNumber = currentSurahMeta ? currentSurahMeta.number : 1;
+    var surahId = surahNumber + '-' + slugify(surahName);
     var base = window.location.origin + window.location.pathname;
     return base + '?surah=' + surahId + '&ayah=' + verseNum + '#ayah-' + verseNum;
   }
