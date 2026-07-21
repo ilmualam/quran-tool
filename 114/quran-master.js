@@ -2,7 +2,7 @@
  * Al-Quran Online 30 Juzuk — Interactive Quran Reader (Rumi/Arab/Terjemahan/Audio)
  * https://www.ilmualam.com/p/quran-online.html
  *
- * Copyright (c) 2020–present Ilmu Alam (ilmualam.com). All Rights Reserved.
+ * Copyright (c) 2026–present Ilmu Alam (ilmualam.com). All Rights Reserved.
  *
  * This source code is proprietary and protected under copyright law.
  * Unauthorized copying, redistribution, or reuse of this file or its logic,
@@ -104,7 +104,8 @@
   }
 
   function surahMatchesTerm(surah, rawTerm) {
-    var term = normalizeText(rawTerm);
+    var cleanedTerm = rawTerm.toLowerCase().replace(/\b(surah|surat|sura)\b/g, '').trim();
+    var term = normalizeText(cleanedTerm);
     if (!term) return true;
     if (surah.number.toString() === rawTerm.trim()) return true;
 
