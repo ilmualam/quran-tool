@@ -1,0 +1,61 @@
+.ilmxbqtool-wrap{all:initial;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;box-sizing:border-box;background:#fff;border:1px solid #e0e8e0;border-radius:16px;overflow:hidden;margin:32px 0;box-shadow:0 4px 24px rgba(12,56,8,.12)}
+.ilmxbqtool-header{background:linear-gradient(135deg,#0c3808,#249749);padding:20px 20px 0;color:#fff}
+.ilmxbqtool-title{font-size:1.1rem;font-weight:700;margin:0 0 4px}
+.ilmxbqtool-subtitle{font-size:.8rem;color:rgba(255,255,255,.75);margin:0 0 16px}
+.ilmxbqtool-tabs{display:flex;gap:4px;border-bottom:none}
+.ilmxbqtool-tab{padding:8px 16px;border-radius:8px 8px 0 0;font-size:.8rem;font-weight:600;cursor:pointer;border:none;background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);transition:all .2s;font-family:inherit}
+.ilmxbqtool-tab.ilmxbqtool-active-tab{background:#fff;color:#0c3808}
+.ilmxbqtool-controls{background:#f8fdf9;border-bottom:1px solid #e0e8e0;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ilmxbqtool-qari-select{padding:6px 10px;border:1px solid #c8ddc8;border-radius:8px;font-size:.82rem;color:#0c3808;background:#fff;font-family:inherit;flex:1;min-width:140px}
+.ilmxbqtool-toggle-row{display:flex;gap:8px;flex-wrap:wrap}
+.ilmxbqtool-toggle{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:20px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid #c8ddc8;background:#fff;color:#1a6632;transition:all .2s;font-family:inherit}
+.ilmxbqtool-toggle.ilmxbqtool-on{background:#249749;color:#fff;border-color:#249749}
+.ilmxbqtool-font-btn{padding:5px 10px;border:1px solid #c8ddc8;border-radius:6px;cursor:pointer;background:#fff;color:#0c3808;font-weight:700;font-size:.85rem;font-family:inherit}
+.ilmxbqtool-font-btn:hover{background:#f0faf3}
+.ilmxbqtool-player-bar{background:#fff;border-bottom:1px solid #e0e8e0;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ilmxbqtool-progress-wrap{flex:1;min-width:120px;height:5px;background:#e0e8e0;border-radius:3px;cursor:pointer;position:relative}
+.ilmxbqtool-progress-fill{height:100%;background:#249749;border-radius:3px;width:0%;transition:width .1s}
+.ilmxbqtool-time{font-size:.72rem;color:#555;white-space:nowrap}
+.ilmxbqtool-btn-row{display:flex;gap:6px;align-items:center}
+.ilmxbqtool-btn{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:transform .2s,background .2s;font-family:inherit}
+.ilmxbqtool-btn:active{transform:scale(.93)}
+.ilmxbqtool-btn-main{background:#249749;color:#fff;width:40px;height:40px;font-size:1rem}
+.ilmxbqtool-btn-main:hover{background:#1a7a3a}
+.ilmxbqtool-btn-sec{background:#f0faf3;color:#0c3808;border:1px solid #c8ddc8}
+.ilmxbqtool-btn-sec.ilmxbqtool-active{background:#0c3808;color:#fff;border-color:#0c3808}
+.ilmxbqtool-toast{position:fixed;bottom:24px;right:24px;background:#0c3808;color:#fff;padding:10px 18px;border-radius:10px;font-size:.85rem;z-index:9999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;font-family:-apple-system,sans-serif}
+.ilmxbqtool-toast.ilmxbqtool-show{opacity:1;transform:translateY(0)}
+.ilmxbqtool-ayat-list{max-height:500px;overflow-y:auto;padding:0 0 8px}
+.ilmxbqtool-ayat{padding:16px 20px;border-bottom:1px solid #f0f4f0;transition:background .2s;cursor:pointer}
+.ilmxbqtool-ayat:hover{background:#f8fdf9}
+.ilmxbqtool-ayat.ilmxbqtool-playing{background:linear-gradient(135deg,#e8f5ec,#f0faf3);border-left:4px solid #249749}
+.ilmxbqtool-ayat.ilmxbqtool-bookmarked{border-right:3px solid #c9993a}
+.ilmxbqtool-ayat-header{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px}
+.ilmxbqtool-ayat-num{background:#0c3808;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+.ilmxbqtool-ayat-actions{display:flex;gap:6px}
+.ilmxbqtool-ayat-btn{width:26px;height:26px;border-radius:6px;border:1px solid #e0e8e0;background:#fff;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.ilmxbqtool-ayat-btn:hover{background:#f0faf3}
+.ilmxbqtool-ayat-btn.ilmxbqtool-bk-active{background:#c9993a;border-color:#c9993a;color:#fff}
+.ilmxbqtool-arabic-text{font-size:1.4rem;text-align:right;direction:rtl;line-height:2;color:#0c3808;font-family:'Traditional Arabic','Scheherazade New','me_quran',serif;margin:0 0 8px}
+.ilmxbqtool-rumi-text{font-size:.85rem;color:#555;font-style:italic;margin:0 0 6px;line-height:1.6}
+.ilmxbqtool-trans-text{font-size:.88rem;color:#1a1a1a;border-left:3px solid #249749;padding-left:10px;margin:0}
+.ilmxbqtool-ayat-progress{height:3px;background:#e0e8e0;border-radius:2px;margin-top:10px;overflow:hidden}
+.ilmxbqtool-ayat-progress-fill{height:100%;background:#249749;width:0%;transition:width .1s}
+.ilmxbqtool-dot-nav{display:flex;flex-wrap:wrap;gap:4px;padding:12px 16px;border-top:1px solid #e0e8e0;background:#fafdf8;justify-content:center;max-height:80px;overflow-y:auto}
+.ilmxbqtool-dot{width:18px;height:18px;border-radius:50%;background:#e0e8e0;cursor:pointer;font-size:.6rem;display:flex;align-items:center;justify-content:center;color:#555;border:none;transition:all .2s;font-family:inherit}
+.ilmxbqtool-dot:hover{background:#249749;color:#fff}
+.ilmxbqtool-dot.ilmxbqtool-dot-active{background:#0c3808;color:#fff}
+.ilmxbqtool-dot.ilmxbqtool-dot-bk{border:2px solid #c9993a}
+.ilmxbqtool-nav-jump{display:flex;gap:8px;align-items:center;padding:10px 16px;border-top:1px solid #e0e8e0;background:#fff}
+.ilmxbqtool-jump-input{width:70px;padding:6px 8px;border:1px solid #c8ddc8;border-radius:6px;font-size:.82rem;font-family:inherit}
+.ilmxbqtool-jump-btn{padding:6px 14px;background:#249749;color:#fff;border:none;border-radius:6px;font-size:.82rem;cursor:pointer;font-family:inherit}
+.ilmxbqtool-share-area{padding:12px 16px;border-top:1px solid #e0e8e0;display:flex;gap:8px;align-items:center;background:#f8fdf9}
+.ilmxbqtool-share-btn{padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+.ilmxbqtool-share-wa{background:#25d366;color:#fff}
+.ilmxbqtool-share-copy{background:#fff;color:#0c3808;border:1px solid #c8ddc8}
+@media(max-width:480px){
+  .ilmxbqtool-arabic-text{font-size:1.2rem}
+  .ilmxbqtool-ayat{padding:12px 14px}
+  .ilmxbqtool-tabs{gap:2px}
+  .ilmxbqtool-tab{padding:6px 10px;font-size:.75rem}
+}
