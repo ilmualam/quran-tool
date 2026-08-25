@@ -4,9 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let bookmarks = JSON.parse(localStorage.getItem("ilmualam_quran_bookmarks")) || [];
     let quranData = [];
 
-    // Gantikan URL ini dengan pautan jsDelivr CDN repository GitHub kau
-    // Format: https://cdn.jsdelivr.net/gh/USERNAME/REPO@main/al-baqarah.json
-    const jsonUrl = "https://cdn.jsdelivr.net/gh/USERNAME/REPO@main/al-baqarah.json";
+
+    const jsonUrl = "https://cdn.jsdelivr.net/gh/ilmualam/quran-tool@main/asset/al-baqarah/al-baqarah.json";
 
     // SVG Icons
     const iconPlay = `<svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const shareData = {
             title: `Surah Al-Baqarah Ayat ${id} di ilmualam.com`,
             text: `${ayah.arabic}\n\n${ayah.translation}`,
-            url: `https://ilmualam.com/surah-al-baqarah-rumi-jawi-audio#ayah-${id}`
+            url: `https://www.ilmualam.com/2020/03/surah-al-baqarah.html#ayah-${id}`
         };
 
         if (navigator.share) {
