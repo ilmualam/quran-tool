@@ -31,7 +31,6 @@ jsonUrl: 'https://cdn.jsdelivr.net/gh/ilmualam/quran-tool@main/asset/al-baqarah/
         // Fallback robust: Menghasilkan 3 ayat pertama berdasarkan JSON asal anda sebagai fail prapapar.
         // Gantikan blok ini dengan `const res = await fetch('LINK_JSON_ANDA'); return await res.json();` kelak.
         return [
-[
     {
         "id": 1,
         "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ الٓمٓ",
